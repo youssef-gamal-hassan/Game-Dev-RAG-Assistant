@@ -1,0 +1,10 @@
+# Core LLM and RAG libraries
+langchain
+faiss-cpu
+langchain-google-genai
+
+# PDF/Text processing
+pdfplumber
+
+# Utilities
+python-dotenv

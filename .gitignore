@@ -1,0 +1,29 @@
+# Virtual environment
+.venv/
+rag_env/
+.env
+
+# Python artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data & intermediate files
+*.log
+*.tmp
+*.cache
+
+# Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode & JetBrains config
+/.idea
+
+# Optional: Jupyter metadata
+*.ipynb
+
+# FAISS or Chroma indexes (if generated as files)
+*.faiss
+chroma_db/
+
