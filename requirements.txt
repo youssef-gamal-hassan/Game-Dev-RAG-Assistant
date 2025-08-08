@@ -8,3 +8,4 @@ pdfplumber
 
 # Utilities
 python-dotenv
+tiktoken

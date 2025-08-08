@@ -1,0 +1,1362 @@
+[
+  {
+    "content": "Optimization will continue to be one of your challenges as a developer .\nGetting your game to run with fewer resources and at higher frame rates\nensures that it can reach more potential players – and keep them engaged .\nWhile your audience may take it for granted that your game runs at silky-\nsmooth 60+ frames per second (fps), achieving your performance goals across\nmultiple platforms is not always easy . It requires effort to make both your code\narchitecture and art assets more efficient .\nThis guide assembles knowledge and advice from Unity’s expert software\nengineers . Our Accelerate Solutions games team has tested these best\npractices with our industry partners in real-world scenarios . We’re here to help\nyou identify key areas for optimization in your Unity project .\nFollow these steps to get the best performance from your PC\nand console game .",
+    "heading": "INTRODUCTION"
+  },
+  {
+    "content": "Profile early, often, and on the target device\nProfiling is the process of measuring aspects of your game’s performance\nat runtime . By using a profiling tool, you can measure how your game runs\non its target platform and use this information to track down the cause of a\nperformance problem . By watching the profiling tool as you make changes, you\ncan gauge whether the changes actually fix the performance problem .\nThe Unity Profiler provides performance information about your application – but",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "The Unity Profiler provides performance information about your application – but\nit can’t help you if you don’t use it .\nProfile your project early and throughout the development cycle, not just when\nyou are close to shipping . Investigate glitches or spikes as soon as they appear\nand make sure to benchmark performance before and after major changes in your\nproject . As you develop a “performance signature” for your project, you’ll be able to\nspot new issues more easily .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "spot new issues more easily .\nWhile profiling in the Editor can give you an idea of the relative performance of\ndifferent systems in your game, profiling on each device gives you the opportunity\nto gain more accurate insights . Profile a development build on target devices\nwhenever possible . Remember to profile and optimize for both the highest- and\nlowest-spec devices that you plan to support .\nAlong with the Unity Profiler, you can leverage the Memory Profiler and Profile",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Along with the Unity Profiler, you can leverage the Memory Profiler and Profile\nAnalyzer . See Profiling Applications Made with Unity and Working with the\nProfiler for more information .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Focus on optimizing the right areas\nDon’t guess or make assumptions about what is slowing down your game’s\nperformance . Use the Unity Profiler and platform-specific tools to locate the\nprecise source of a lag . Profiling tools ultimately help you understand what’s\ngoing on under the hood of your Unity project . But don’t wait for significant\nperformance problems to start showing before digging into your detective\ntoolbox .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "performance problems to start showing before digging into your detective\ntoolbox .\nOf course, not every optimization described here will apply to your application .\nSomething that works well in one project may not translate to yours . Identify\ngenuine bottlenecks and concentrate your efforts on what benefits your work .\nTo learn more about how to plan your profiling workflows see the Ultimate guide\nto profiling Unity games .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Follow this workflow for profiling your Unity projects efficiently .\nUnderstand how the Unity Profiler works\nThe built-in Unity Profiler can help you detect the causes of any bottlenecks or\nfreezes at runtime and better understand what’s happening at a specific frame or\npoint in time .\nThe Profiler is instrumentation-based . It profiles timings of game and engine\ncode that are automatically marked up (such as MonoBehaviour’s Start or Update",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "code that are automatically marked up (such as MonoBehaviour’s Start or Update\nmethods, or specific API calls), or explicitly wrapped with the help of ProfilerMarker\nAPI .\nBegin by enabling the CPU and Memory tracks as your default . You can monitor\nsupplementary Profiler Modules like Renderer, Audio, and Physics as needed for\nyour game (for example, profiling for physics-heavy or music-based gameplay) .\nHowever, only enable what you need so you don’t impact performance and skew\nyour results .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Use the Unity Profiler to test performance and resource allocation .\nTo capture profiling data from an actual device within your chosen platform,\ncheck the Development.Build before you click Build and Run . Then, connect the\nProfiler to your application manually once it’s running .\nYou can optionally check Autoconnect.Profiler in the Build Options . Sometimes\nthis is useful if you specifically want to capture the first few frames of the",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "this is useful if you specifically want to capture the first few frames of the\napplication . Be warned that this option can add 5–10 seconds of startup\ntime, so only use it when necessary .\nAdjust your Build Settings before profiling .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Choose the platform target to profile . The Record button tracks several\nseconds of your application’s playback (300 frames by default) . Go to\nUnity.>.Preferences.>.Analysis.>.Profiler.>.Frame.Count to increase this\nup to 2000 if you need longer captures . While this costs more CPU and\nmemory resources, it can be useful depending on your specific scenario .\nUse the Timeline view to determine if you are CPU-bound or GPU-bound .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Use the Timeline view to determine if you are CPU-bound or GPU-bound .\nWhen using the Deep Profiling setting, Unity can profile the beginning and end\nof every function call in your script code, telling you exactly which part of your\napplication is being executed and potentially causing a delay . However, deep\nprofiling adds overhead to every method call and may skew the performance\nanalysis .\nClick in the window to analyze a specific frame . Next, use either the Timeline or",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "analysis .\nClick in the window to analyze a specific frame . Next, use either the Timeline or\nHierarchy view for the following:\n—. Timeline shows the visual breakdown of timing for a specific frame .\nThis allows you to visualize how the activities relate to one another\nand across different threads . Use this option to determine if you are\nCPU- or GPU-bound .\n—. Hierarchy shows the hierarchy of ProfileMarkers, grouped together .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "CPU- or GPU-bound .\n—. Hierarchy shows the hierarchy of ProfileMarkers, grouped together .\nThis allows you to sort the samples based on time cost in milliseconds\n(Time ms and Self ms) . You can also count the number of Calls\nto a function and the managed heap memory (GC Alloc) on the frame .\nYou can find a complete overview of the Unity Profiler here . If you’re new to\nprofiling, you can also watch Introduction to Unity Profiling .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "profiling, you can also watch Introduction to Unity Profiling .\nBefore optimizing anything in your project, save the Profiler .data file . Implement\nyour changes and compare the saved .data before and after the modification .\nRely on this cycle to improve performance: profile, optimize, and compare .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "The Hierarchy view allows you to sort ProfileMarkers by time cost .\nDeep Profiling\nYou can also enable Deep Profiling Support in the Build Settings . When the built\nPlayer starts, the Deep Profiler profiles every part of your code, not just code\ntimings explicitly wrapped in ProfilerMarkers .\nWhen Deep Profiling is enabled, Unity can profile the beginning and end of every\nfunction call in your script code . This can help you identify exactly which part of",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "function call in your script code . This can help you identify exactly which part of\nyour application is causing a slowdown .\nHowever, Deep Profiling is resource-intensive and uses a lot of memory . Each\nProfilerMarker adds a tiny bit of overhead (about 10ns, depending on the\nplatform), so each additional point of measurement slows your application\nmore . Also, be warned that if you have a lot of function calls, deep profiling\namplifies their overhead as well .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "amplifies their overhead as well .\nIf you want to see more details on samples with markers such as GC .Alloc or\nJobHandle .Complete, navigate to the Profiler window toolbar and enable the\nCall.Stacks setting . This provides the sample’s full call stack, which gives\nyou the information you need without incurring the overhead of Deep Profiling .\nUse Call Stacks instead of Deep Profiling whenever possible .\nIn general, only use Deep Profiling when it’s necessary, since your application",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "In general, only use Deep Profiling when it’s necessary, since your application\nruns significantly slower when it’s in use .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Use the Profile Analyzer\nThe Profile Analyzer lets you aggregate multiple frames of Profiler data, then\nlocate frames of interest . Do you want to see what happens to the Profiler after\nyou make a change to your project? The Compare view allows you to load and\ndifferentiate two data sets, so you can test changes and improve their outcome .\nThe Profile Analyzer is available via Unity’s Package Manager .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "The Profile Analyzer is available via Unity’s Package Manager .\nTake an even deeper dive into frames and marker data with the Profile Analyzer, which complements the existing Profiler .\nWork on a specific time budget per frame\nEach frame will have a time budget based on your target frames per second\n(fps) . For an application to run at 30 fps, its frame budget can’t exceed 33 .33\nms per frame (1000 ms / 30 fps) . Likewise, a target of 60 fps leaves 16 .66 ms\nper frame .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Frames per second: A deceptive metric\nA common way that gamers measure performance is with frame rate, or frames per\nsecond . This can be a deceptive metric when gauging your application’s performance .\nWe recommend that you use frame time in milliseconds instead . To understand\nwhy, look at this graph of.fps.versus.Frame.Time:\nfps versus Frame Time\nConsider these numbers:\n1000 ms/sec / 900 fps = 1 .111 ms per frame\n1000 ms/sec / 450 fps = 2 .222 ms per frame",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "1000 ms/sec / 900 fps = 1 .111 ms per frame\n1000 ms/sec / 450 fps = 2 .222 ms per frame\n1000 ms/sec / 60 fps = 16 .666 ms per frame\n1000 ms/sec / 56 .25 fps = 17 .777 ms per frame\nIf your application is running at 900 fps, this translates into a frame time of\n1 .111 milliseconds per frame . At 450 fps, this is 2 .222 milliseconds per frame .\nThis represents a difference of only 1.111 milliseconds per frame, even though\nthe frame rate appears to drop by one half .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "the frame rate appears to drop by one half .\nIf you look at the differences between 60 fps and 56 .25 fps, that translates into\n16 .666 milliseconds per frame and 17 .777 milliseconds per frame, respectively .\nThis also represents 1 .111 milliseconds extra per frame, but here, the drop-in\nframe rate feels far less dramatic percentage-wise .\nThis is why developers use the average frame time to benchmark game speed\nrather than fps .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "This is why developers use the average frame time to benchmark game speed\nrather than fps .\nDon’t worry about fps unless you drop below your target frame rate . Focus on frame\ntime to measure how fast your game is running, then stay within your frame budget .\nRead the original article, “Robert Dunlop’s FPS versus Frame Time,” for more\ninformation .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Determine if you are GPU-bound or CPU-bound\nThe central processing unit (CPU) is responsible for determining what must be\ndrawn, and the graphics processing unit (GPU) is responsible for drawing it . When\na rendering performance problem is due to the CPU taking too long to render a\nframe, the game becomes CPU bound . When a rendering performance problem is\ndue to the GPU taking too long to render a frame, it becomes GPU bound .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "due to the GPU taking too long to render a frame, it becomes GPU bound .\nThe Profiler can tell you if your CPU is taking longer than your allotted frame\nbudget, or if the culprit is your GPU . It does this by emitting markers prefixed\nwith Gfx as follows:\n— If you see the Gfx .WaitForCommands marker, it means that the render\nthread is ready, but you might be waiting for a bottleneck on the main thread .\n— If you frequently encounter Gfx .WaitForPresentOnGfxThread, it means",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "— If you frequently encounter Gfx .WaitForPresentOnGfxThread, it means\nthat the main thread was ready but was waiting for the render thread .\nThis might indicate that your application is GPU-bound . Check the\nCPU Profiler module’s Timeline view to see activity on the render thread .\nIf the render thread spends time in.Camera .Render, your application is CPU-bound\nand might be spending too much time sending draw calls or textures to the GPU .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "and might be spending too much time sending draw calls or textures to the GPU .\nIf the render thread spends time in Gfx .PresentFrame, your application is\nGPU-bound or might be waiting for VSync on the GPU .\nRefer to the Common Profiler markers documentation for a complete list of\nmarkers . Also, check out our blog post on Fixing Time .deltaTime in Unity 2020 .2\nfor smoother gameplay for more information about the frame pipeline .\nUse native profiling and debugging tools",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Use native profiling and debugging tools\nStart your profiling with Unity’s tools, and if you need greater detail, reach for\nthe native profiling and debugging tools available for your target platform .\nNative profiling tools\nIntel\n— Intel VTune: Quickly find and fix performance bottlenecks on Intel\nplatforms with this suite of tools for Intel processors only .\n— Intel GPA suite: This suite of graphics-focused tools can help you improve",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "— Intel GPA suite: This suite of graphics-focused tools can help you improve\nyour game’s performance by quickly identifying problem areas .\nXbox® and Windows PC\n— PIX: PIX is a performance tuning and debugging tool for Windows and Xbox\ngame developers using DirectX 12 . It includes tools for understanding and\nanalyzing CPU and GPU performance, as well as monitoring various real-time\nperformance counters . For Windows developers, start here . For more details",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "performance counters . For Windows developers, start here . For more details\nabout PIX for Xbox, you need to be a registered Xbox developer: Start here .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "PC / Universal\n— AMD μProf: AMD uProf is a performance analysis tool for understanding and\nprofiling performance for applications running on AMD hardware .\n— NVIDIA NSight: This tooling enables developers to build, debug, profile, and\ndevelop class-leading and cutting-edge software using the latest visual\ncomputing hardware from NVIDIA .\n— Superluminal: Superluminal is a high-performance, high-frequency profiler\nthat supports profiling applications on Windows, Xbox One, and PlayStation®",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "that supports profiling applications on Windows, Xbox One, and PlayStation®\nwritten in C++, Rust and .NET . It is a paid product, though, and must be\nlicensed for use .\nPlayStation\n— CPU profiler tools are available for PlayStation hardware . For more details, you\nneed to be a registered PlayStation developer: Start here .\nWebGL\n— Firefox Profiler: Dig into the call stacks and view flame graphs for Unity\nWebGL builds (among other things) with the Firefox Profiler . It also features a",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "WebGL builds (among other things) with the Firefox Profiler . It also features a\ncomparison tool to look at profiling captures side by side .\n— Chrome DevTools Performance: This web browser tool can be used to\nprofile Unity WebGL builds .\nGPU debugging and profiling tools\nWhile the Unity Frame Debug tool captures and illustrates draw calls that are\nsent from the CPU, the following tools can help show you what the GPU does\nwhen it receives those commands .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "when it receives those commands .\nSome are platform-specific and offer closer platform integration . Take a look at\nthe tools relevant to your platforms of interest:\n— RenderDoc: GPU debugger for desktop and mobile platforms\n— Intel GPA: Graphics profiling for Intel-based platforms\n— Apple Frame Capture Debugging Tools: GPU debugging for Apple platforms\n— Visual Studio Graphics Diagnostics: Choose this and/or PIX for DirectX-based\nplatforms such as Windows or Xbox",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "platforms such as Windows or Xbox\n— NVIDIA Nsight Frame Debugger: OpenGL-based frame debugger for NVIDIA\nGPUs\n— AMD Radeon Developer Tool Suite: GPU profiler for AMD GPUs\n— Xcode frame debugger: For iOS and macOS\nProject Auditor\nThe Project Auditor is an experimental tool capable of performing static analysis\nof a project’s scripts and settings . It offers a great way to track down the causes\nof managed memory allocations, inefficient project configurations, and possible",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "of managed memory allocations, inefficient project configurations, and possible\nperformance bottlenecks .\nThe Project Auditor is a free, unofficial package for use with the Editor .\nFor information, please refer to the Project Auditor documentation .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Build Report Inspector\nThe Build Report Inspector (in Preview) is an Editor script that lets you access\ninformation about your last build so you can profile the time spent building your\nproject and the build’s disk size footprint .\nThis script allows you to inspect this information graphically in the Editor UI,\nmaking it more easily accessible than the script APIs would .\nThe Build Report Inspector\nThe build report displays statistics on included resources and generated code size .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "The build report displays statistics on included resources and generated code size .\nWatch a Unite Now presentation on Optimizing Binary Deployment Size to learn\nhow to optimize your build size . You can also read the Build Report Inspector\ndocumentation for more information .",
+    "heading": "PROFILING"
+  },
+  {
+    "content": "Unity employs automatic memory management for user-generated code and\nscripts . Small pieces of data, like value-typed local variables, are allocated to\nthe stack . Larger pieces of data and long-term storage are allocated to the\nmanaged or native heaps .\nThe garbage collector periodically identifies and deallocates unused managed\nheap memory . The Asset garbage collection runs on demand or when you load\na new scene, and it deallocates native objects and resources . While this runs",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "a new scene, and it deallocates native objects and resources . While this runs\nautomatically, the process of examining all the objects in the heap can cause\nthe game to stutter or run slowly .\nOptimizing your memory usage means being conscious of when you allocate\nand deallocate managed heap memory, and how you minimize the effect of\ngarbage collection .\nSee Understanding the managed heap for more information .\nCapture, inspect, and\ncompare snapshots in the\nMemory Profiler .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Use the Memory Profiler\nThe Memory Profiler package takes a snapshot of your managed heap memory\nto help you identify problems like fragmentation and memory leaks .\nUse the Unity.Objects tab to identify areas where you can eliminate duplicate\nmemory entries or find which objects use the most memory . The All.of.Memory\ntab displays a breakdown of all the memory in the snapshot that Unity tracks .\nLearn how to leverage the Memory Profiler in Unity for improved memory usage .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Learn how to leverage the Memory Profiler in Unity for improved memory usage .\nReduce the impact of garbage collection (GC)\nUnity uses the Boehm-Demers-Weiser garbage collector, which stops running\nyour program code and only resumes normal execution once its work is complete .\nBe aware of certain unnecessary heap allocations, which could cause GC spikes:\n—. Strings: In C#, strings are reference types, not value types . This means",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "—. Strings: In C#, strings are reference types, not value types . This means\nthat every new string will be allocated on the managed heap, even if it’s\nonly used temporarily . Reduce unnecessary string creation or manipulation .\nAvoid parsing string-based data files such as JSON and XML, and store\ndata in ScriptableObjects or formats like MessagePack or Protobuf instead .\nUse the StringBuilder class if you need to build strings at runtime .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Use the StringBuilder class if you need to build strings at runtime .\n—. Unity.function.calls: Some Unity API functions create heap allocations,\nparticularly ones which return an array of managed objects . Cache\nreferences to arrays rather than allocating them in the middle of a loop .\nAlso, take advantage of certain functions that avoid generating garbage .\nFor example, use GameObject .CompareTag instead of manually comparing",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "For example, use GameObject .CompareTag instead of manually comparing\na string with GameObject .tag (as returning a new string creates garbage) .\n—. Boxing: Avoid passing a value-typed variable in place of a reference-typed\nvariable . This creates a temporary object, and the potential garbage\nthat comes with it implicitly converts the value type to a type object\n(e .g ., int.i.=.123;.object.o.=.i) . Instead, try to provide concrete overrides with the",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "(e .g ., int.i.=.123;.object.o.=.i) . Instead, try to provide concrete overrides with the\nvalue type you want to pass in . Generics can also be used for these overrides .\n—. Coroutines: Though yield does not produce garbage, creating a new\nWaitForSeconds object does . Cache and reuse the WaitForSeconds object\nrather than creating it in the yield line .\n—. LINQ.and.Regular.Expressions: Both of these generate garbage from\nbehind-the-scenes boxing . Avoid LINQ and Regular Expressions if",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "behind-the-scenes boxing . Avoid LINQ and Regular Expressions if\nperformance is an issue . Write for loops and use lists as an alternative\nto creating new arrays .\n—. Generic.Collections.and.other.managed.types: Don’t declare and\npopulate a List or collection every frame in Update (for example, a list of\nenemies within a certain radius of the player) . Instead make the List a\nmember of the MonoBehaviour and initialize it in Start . Simply empty the",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "member of the MonoBehaviour and initialize it in Start . Simply empty the\ncollection with Clear every frame before using it .\nFor more information, see the manual page on Garbage Collection Best Practices .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Time garbage collection whenever possible\nIf you are certain that a garbage collection freeze won’t affect a specific point in\nyour game, you can trigger garbage collection with System .GC .Collect .\nSee Understanding Automatic Memory Management for examples of how to use\nthis to your advantage .1\nUse the Incremental Garbage Collector to split the GC workload\nRather than creating a single, long interruption during your program’s execution,",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Rather than creating a single, long interruption during your program’s execution,\nincremental garbage collection uses multiple, much shorter interruptions\nthat distribute the workload over many frames . If garbage collection is impacting\nperformance, try enabling this option to see if it can reduce the problem of\nGC spikes . Use the Profile Analyzer to verify its benefit to your application .\nNote: Incremental GC can temporarily help mitigate garbage collection",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Note: Incremental GC can temporarily help mitigate garbage collection\nissues, but the best long-term course of action is to locate and stop frequent\nallocations that trigger garbage collection .\nUse the Incremental Garbage Collector to reduce GC spikes .\nHeap Explorer\nThe Heap Explorer\n1 Note that using the GC can add read-write barriers to some C# calls, which come with little overhead that can",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "add up to ~1 ms per frame of scripting call overhead . For optimal performance, it is ideal to have no GC Allocs in\nthe main gameplay loops and to hide the GC .Collect where a user won’t notice it .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "Heap Explorer is a third-party Memory Profiler, Debugger, and Analyzer for Unity .\nThe package can be used to grab a memory snapshot of a given frame and shows\nclear tables for Native, Managed, and Static memory . Heap Explorer can help\nyou identify duplicated assets, like textures copied between multiple AssetBundles .\nThough it overlaps in functionality with Unity’s Memory Profiler, some still prefer\nHeap Explorer for its easy to understand UI/UX .",
+    "heading": "MEMORY"
+  },
+  {
+    "content": "The Unity PlayerLoop contains functions for interacting with the core of\nthe game engine . This structure includes a number of systems that handle\ninitialization and per-frame updates . All of your scripts will rely on this\nPlayerLoop to create gameplay .\nWhen profiling, you’ll see your project’s user code under the PlayerLoop\n(with Editor components under the EditorLoop) .\nThe Profiler will show your custom scripts, settings, and graphics in the context of the entire engine’s execution .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Understand the Unity PlayerLoop\nMake sure you understand the execution order of Unity’s frame loop . Every\nUnity script runs several event functions in a predetermined order . You should\nunderstand the difference between Awake, Start, Update, and other functions\nthat create the lifecycle of a script . You can utilize the Low-Level API to add\ncustom logic to the player’s update loop .\nRefer to the Script Lifecycle Flowchart for event functions’ specific order of\nexecution .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Get to know the PlayerLoop and the lifecycle of a script .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Minimize code that runs every frame\nConsider whether code must run every frame . Move unnecessary logic out of\nUpdate, LateUpdate, and FixedUpdate . These event functions are convenient\nplaces to put code that must update every frame, while extracting any logic that\ndoes not need to update with that frequency . Whenever possible, only execute\nlogic when things change .\nIf you do need to use Update, consider running the code every n frames .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "logic when things change .\nIf you do need to use Update, consider running the code every n frames .\nThis is one way to apply time slicing, a common technique of distributing\na heavy workload across multiple frames . In this example, we run the\nExampleExpensiveFunction once every three frames:\nprivate int interval = 3;\nvoid Update()\n{\nif (Time.frameCount % interval == 0)\n{\nExampleExpensiveFunction();\n}\n}\nBetter yet, if ExampleExpensiveFunction performs some operation on a set",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "}\n}\nBetter yet, if ExampleExpensiveFunction performs some operation on a set\nof data, consider using time slicing to operate on a different subset of that\ndata every frame . By doing 1/n of the work every frame rather than all of the\nwork every n frames, you end up with performance that is more stable and\npredictable overall, rather than seeing periodic CPU spikes .\nThe trick is to interleave this with other work that runs on the other frames .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "The trick is to interleave this with other work that runs on the other frames .\nIn this example, you could “schedule” other expensive functions when\nTime .frameCount.%.interval.==.1 or Time .frameCount.%.interval.==.2 .\nAlternatively, use a custom UpdateManager class (below) and update\nsubscribed objects every n frames .\nCache the results of expensive functions\nGameObject .Find, GameObject .GetComponent, and Camera .main (in versions",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "GameObject .Find, GameObject .GetComponent, and Camera .main (in versions\nprior to 2020 .2) can be expensive, so it’s best to avoid calling them in Update\nmethods . Also, avoid placing expensive methods in OnEnable and OnDisable if\nthey are called often .\nFrequently calling these methods can contribute to CPU spikes . Wherever possible,\nrun expensive functions in the initialization phase (i .e ., MonoBehaviour .Awake\nand MonoBehaviour .Start) . Cache the needed references and reuse them later .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "and MonoBehaviour .Start) . Cache the needed references and reuse them later .\nHere’s an example that demonstrates inefficient use of a repeated\nGetComponent call:",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "void Update()\n{\nRenderer myRenderer = GetComponent<Renderer>();\nExampleFunction(myRenderer);\n}\nInstead, invoke GetComponent only once, as the result of the function is cached .\nThe cached result can be reused in Update without any further calls to GetComponent .\nprivate Renderer myRenderer;\nvoid Start()\n{\nmyRenderer = GetComponent<Renderer>()\n}\nvoid Update()\n{\nExampleFunction(myRenderer);\n}\nAvoid empty Unity event functions",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "}\nvoid Update()\n{\nExampleFunction(myRenderer);\n}\nAvoid empty Unity event functions\nEven empty MonoBehaviours require resources, so you should remove blank\nUpdate or LateUpdate methods .\nUse preprocessor directives if you are employing these methods for testing:\n#if UNITY_EDITOR\nvoid Update()\n{\n}\n#endif\nHere, you can freely use the Update in-Editor for testing without unnecessary\noverhead slipping into your build . This blog post on 10,000 Update calls will help",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "overhead slipping into your build . This blog post on 10,000 Update calls will help\nyou understand how Unity executes Monobehaviour .Update .\nBuild a custom Update Manager\nA common usage pattern for Update or LateUpdate is to run logic only when\nsome condition is met . This can lead to a lot of per-frame callbacks that effectively\nrun no code except for checking this condition .\nEvery time Unity calls a Message method like Update or LateUpdate, it makes",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Every time Unity calls a Message method like Update or LateUpdate, it makes\nan interop call, a call from the C/C++ side to the managed C# side . For a small\nnumber of objects, this is not an issue . When you have thousands of objects,\nthis overhead starts becoming significant .\nConsider creating a custom UpdateManager if you have a large project using\nUpdate or LateUpdate in this fashion (e .g ., an open-world game) . Have active",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Update or LateUpdate in this fashion (e .g ., an open-world game) . Have active\nobjects subscribe to this UpdateManager when they want callbacks, and\nunsubscribe when they don’t . This pattern could reduce many of the interop\ncalls to your MonoBehaviour objects .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Building a custom Update Manager reduces interop calls .\nRefer to Game engine-specific optimization techniques for Unity to see\nan example of implementation and potential performance gains .\nRemove Debug Log statements\nLog statements (especially in Update, LateUpdate, or FixedUpdate) can bog\ndown performance . Disable your Log statements before making a build .\nTo do this more easily, consider making a Conditional attribute along",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "To do this more easily, consider making a Conditional attribute along\nwith a preprocessing directive . For example, create a custom class like this:\npublic static class Logging\n{\n[System.Diagnostics.Conditional(“ENABLE_LOG”)]\nstatic public void Log(object message)\n{\nUnityEngine.Debug.Log(message);\n}\n}\nAdding a custom preprocessor directive lets you partition your scripts .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Generate your log message with your custom class . If you disable the\nENABLE_LOG preprocessor in the Player.Settings.>.Scripting.Define.Symbols,\nall of your Log statements disappear in one fell swoop .\nThe same thing applies for other use cases of the Debug Class, such as Debug .\nDrawLine and Debug .DrawRay . These are also only intended for use during\ndevelopment and can significantly impact performance .\nHandling strings and text is a common source of performance problems in",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Handling strings and text is a common source of performance problems in\nUnity projects . Removing Log statements – and their expensive string formatting –\ncan be a huge win .\nDisable Stack Trace logging\nUse the Stack Trace options in the Player Settings to control what type of log\nmessages appear .\nIf your application is logging errors or warning messages in your release build (e .g .,\nto generate crash reports in the wild), disable stack traces to improve performance .\nStack Trace options",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Stack Trace options\nUse hash values instead of string parameters\nUnity does not use string names to address animator, material, and shader\nproperties internally . For speed, all property names are hashed into property\nIDs, and these IDs are actually used to address the properties .\nWhen using a Set or Get method on an animator, material, or shader, harness\nthe integer-valued method instead of the string-valued methods . The string",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "the integer-valued method instead of the string-valued methods . The string\nmethods simply perform string hashing and then forward the hashed ID to the\ninteger-valued methods .\nUse Animator .StringToHash for Animator property names and Shader .PropertyToID\nfor material and shader property names . Get these hashes during initialization and\ncache them in variables for when they’re needed to pass to a Get or Set method .\nChoose the right data structure",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Choose the right data structure\nYour choice of data structure impacts efficiency as you iterate thousands of\ntimes per frame . Not sure whether to use a list, array, or dictionary for your\ncollection? Follow the MSDN guide to data structures in C# as a general guide\nfor choosing the correct structure .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Avoid adding components at runtime\nInvoking AddComponent at runtime comes with some cost . Unity must check for\nduplicates or other required components whenever adding components at runtime .\nInstantiating a Prefab with the desired components already set up is generally\nmore performant .\nUse object pools\nInstantiate and Destroy can generate garbage and garbage collection (GC)\nspikes, and this is generally a slow process\nIn this example, the ObjectPool\ncreates 20 PlayerLaser",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "spikes, and this is generally a slow process\nIn this example, the ObjectPool\ncreates 20 PlayerLaser\ninstances for reuse .\nObject pooling is a design pattern that can provide performance optimization by\nreducing the processing power required of the CPU to run repetitive create and\ndestroy calls . Instead, with object pooling, existing GameObjects can be reused\nover and over .\nThe key function of object pooling is to create objects in advance and store them",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "over and over .\nThe key function of object pooling is to create objects in advance and store them\nin a pool, rather than have them created and destroyed on demand . When an\nobject is needed, it’s taken from the pool and used . When it’s no longer needed, it’s\nreturned to the pool rather than being destroyed .\nRather than regularly instantiating and destroying GameObjects (e .g ., shooting bullets\nfrom a gun), use pools of preallocated objects that can be reused and recycled .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "This reduces the number of managed allocations in your project and can prevent\ngarbage collection problems .\nLearn how to create a simple object pooling system in Unity using the Pooling\nAPI as of 2021 LTS .\nTransform once, not twice\nWhen moving Transforms, use Transform .SetPositionAndRotation to update\nboth position and rotation at once . This avoids the overhead of modifying a\ntransform twice .\nIf you need to Instantiate a GameObject at runtime, a simple optimization is to",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "transform twice .\nIf you need to Instantiate a GameObject at runtime, a simple optimization is to\nparent and reposition during instantiation:\nGameObject.Instantiate(prefab, parent);\nGameObject.Instantiate(prefab, parent, position, rotation);\nFor more on Object .Instantiate, please see the Scripting API .\nUse ScriptableObjects\nStore unchanging values or settings in a ScriptableObject instead of a\nMonoBehaviour . The ScriptableObject is an asset that lives inside of the project",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "MonoBehaviour . The ScriptableObject is an asset that lives inside of the project\nthat you only need to set up once . It cannot be directly attached to a GameObject .\nMonoBehaviours carry extra overhead since they require a GameObject – and by\ndefault a Transform – to act as a host . That means that you need to create a lot\nof unused data before storing a single value . The ScriptableObject slims down\nthis memory footprint by dropping the GameObject and Transform . It also stores",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "this memory footprint by dropping the GameObject and Transform . It also stores\nthe data at the project level, which is helpful if you need to access the same\ndata from multiple scenes .\nA common use case is having many GameObjects that rely on the same\nduplicate data, which does not need to change at runtime . Rather than\nhaving this duplicate local data on each GameObject, you can funnel it into a\nScriptableObject . Then, each of the objects stores a reference to the shared",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "ScriptableObject . Then, each of the objects stores a reference to the shared\ndata asset, rather than copying the data itself . This is a benefit that can provide\nsignificant performance improvements in projects with thousands of objects .\nCreate fields in the ScriptableObject to store your values or settings, then\nreference the ScriptableObject in your MonoBehaviours .\nIn this example, a ScriptableObject called Inventory holds settings for various GameObjects .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Using fields from the ScriptableObject can prevent unnecessary duplication\nof data every time you instantiate an object with that MonoBehaviour .\nIn software design, this is an optimization known as the flyweight pattern .\nRestructuring your code in this way using ScriptableObjects avoids copying a lot\nof values and reduces your memory footprint .\nWatch this introduction to ScriptableObjects to see how ScriptableObjects can",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Watch this introduction to ScriptableObjects to see how ScriptableObjects can\nbenefit your project . You can also check out the relevant documentation .\nTo learn more about using design patterns in Unity, see the e-book Level up your\ncode with game programming patterns to learn more about using design patterns .\nTo learn more about using ScriptableObjects in your project, see the e-book\nCreate modular architecture in Unity with ScriptableObjects .\nAvoid lambda expressions",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Create modular architecture in Unity with ScriptableObjects .\nAvoid lambda expressions\nA lambda expression can simplify your code, but that simplification comes\nat a cost . Calling a lambda creates a delegate as well . Passing context\n(e .g ., this, an instance member, or a local variable) into the lambda invalidates\nany caching for the delegate . When that happens, invoking it frequently\ncan generate significant memory traffic .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "can generate significant memory traffic .\nRefactor any methods containing closures while using lambda expressions .\nSee an example of how to do that here .\nThe C# Job System\nModern CPUs have multiple cores, but your application needs multithreaded\ncode to take advantage of them . Unity’s Job System allows you to split large\ntasks into smaller chunks that run in parallel on those extra CPU cores, which\ncan improve performance significantly .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "can improve performance significantly .\nOften in multithreaded programming, one CPU thread of execution, the main\nthread, creates other threads to handle tasks . These additional worker threads\nthen synchronize with the main thread once their work completes .\nIn traditional\nmultithreaded\nprogramming, threads\nare created and\ndestroyed . In the C# Job\nSystem, small jobs run\non a pool of threads .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "If you have a few tasks that run for a long time, this approach to multithreading\nworks well . However, it’s less efficient for a game application, which must\ntypically process many short tasks at 30–60 frames per second .\nThat’s why Unity uses a slightly different approach to multithreading called\nthe C# Job System . Rather than generate many threads with a short lifetime,\nit breaks your work into smaller units called jobs .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "it breaks your work into smaller units called jobs .\nTimeline view in the Profiler shows jobs running on the worker threads .\nThese jobs go into a queue, which schedules them to run on a shared pool of\nworker threads . JobHandles help you create dependencies, ensuring that the\njobs run in the correct order .\nOne potential issue with multithreading is a race condition, which occurs\nwhen two threads access a shared variable at the same time . To prevent this,",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "when two threads access a shared variable at the same time . To prevent this,\nUnity multithreading uses a safety system to isolate the data a job needs to\nexecute . The C# Job System launches each job with a copy of the job structure,\neliminating race conditions .\nTo use Unity’s C# Job System, follow these guidelines:\n— Change classes to be structs . A job is any struct that implements the IJob\ninterface . If you’re performing the same task on a large number of objects,",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "interface . If you’re performing the same task on a large number of objects,\nyou could also use IJobParallelFor to run across multiple cores .\n— Data passed into a job must be blittable . Remove reference types and pass\nonly the blittable data into the job as a copy .\n— Because the work within each job remains isolated for safety, you send the\nresults back to the main thread using a NativeContainer . A NativeContainer\nfrom the Unity Collections package provides a C# wrapper for native",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "from the Unity Collections package provides a C# wrapper for native\nmemory . Its subtypes (e .g ., NativeArray, NativeList, NativeHashMap,\nNativeQueue, etc .)2 work like their equivalent C# data structures .\n2 These are part of the com .unity .collections package . Some of these structures are currently in Preview .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Refer to the documentation to see how you can optimize CPU performance in\nyour own project using the C# Job System .\nThe Burst compiler\nThe Burst compiler complements the Job System . Burst translates IL/ .NET\nbytecode into optimized native code using LLVM . To access it, simply add the\ncom .unity .burst package from the Package Manager .\nBurst allows Unity developers to continue using a subset of C# for convenience\nwhile improving performance .\nTo enable the Burst compiler for your scripts:",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "while improving performance .\nTo enable the Burst compiler for your scripts:\n— Remove static variables . If you need to write to a list, consider using a\nNativeArray decorated with the NativeDisableContainerSafetyRestriction\nattribute . This allows parallel jobs to write to the NativeArray .\n— Use Unity .Mathematics functions instead Mathf . functions .\n— Decorate the job definition with the BurstCompile attribute .\n[BurstCompile]\npublic struct MyFirstJob : IJob\n{",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "[BurstCompile]\npublic struct MyFirstJob : IJob\n{\npublic NativeArray<float3> ToNormalize;\npublic void Execute()\n{\nfor (int i = 0; i < ToNormalize.Length; i++)\n{\nToNormalize[i] = math.normalize(ToNormalize[i]);\n}\n}\n}\nHere is an example Burst job that runs over an array of float3’s and normalizes\nthe vectors . It uses the Unity Mathematics package, as mentioned above .\nBoth the C# Job System and the Burst compiler form part of Unity’s",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "Both the C# Job System and the Burst compiler form part of Unity’s\nData-Oriented Tech Stack (DOTS) . However, you can use them equally\nwith ‘classic’ Unity GameObjects or the Entity Component System .\nRefer to the latest documentation to see how Burst can accelerate your\nworkflow when combined with the C# Job System .",
+    "heading": "PROGRAMMINGANDCODEARCHITECTURE"
+  },
+  {
+    "content": "There are a few project settings that can affect your performance .\nDisable unnecessary Player or Quality settings\nIn the Player settings, disable Auto Graphics API and\nremove graphics APIs that you don’t plan on supporting\nOn PlayStation platforms\nfor each of your targeted platforms . This can prevent\nwhere IL2CPP is the only option,\ngenerating excessive shader variants . Disable Target\nlocate the Player.Settings.>..\nArchitectures for older CPUs if your application is not\nOther.Settings.>.IL2CPP.\nsupporting them .\noptimization.level.settings .\nUse the less optimal options\nIn the Quality settings, disable needless Quality levels .\nduring development to speed\nSwitch to IL2CPP up build times . For profiling or\nfinal release, select Optimized.\nWe recommend switching the Scripting Backend from Compile,.Remove.Unused.\nMono to IL2CPP (Intermediate Language to C++) . Code,.Optimized.link .\nDoing so will provide overall better runtime performance .\nBe aware this does increase build times . Some developers\nprefer to use Mono locally for faster iteration, then switch\nto IL2CPP for build machines and/or release candidates .\nRefer to the Optimizing IL2CPP build times documentation\nto reduce your build times .\n\nSwitch to IL2CPP\nUsing this option, Unity converts IL code from scripts and assemblies to C++\nbefore creating a native binary file (e .g ., .exe, .apk, .xap) for your target platform .\nPlease refer to the documentation, which provides information on how to\noptimize build times .\nYou can also read the Introduction to IL2CPP Internals blog post for additional\ndetail or consult the Compiler options manual page to see how the various\ncompiler options affect runtime performance .\nAvoid large hierarchies\nSplit your hierarchies . If your GameObjects do not need to be nested in a\nhierarchy, simplify the parenting . Smaller hierarchies benefit from multithreading\nto refresh the Transforms in your scene . Complex hierarchies incur unnecessary\nTransform computations and more cost to garbage collection .\nSee Optimizing the Hierarchy and this Unite talk for best practices for Transforms .",
+    "heading": "PROJECTCONFIGURATION"
+  },
+  {
+    "content": "The asset pipeline can dramatically impact your application’s performance .\nAn experienced technical artist can help your team define and enforce asset\nformats, specifications, and import settings for smooth processes .\nDon’t rely on default settings . Use the platform-specific override tab to optimize\nassets such as textures and mesh geometry . Incorrect settings might yield\nlarger build sizes, longer build times, poor GPU performance, and poor memory",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "larger build sizes, longer build times, poor GPU performance, and poor memory\nusage . Consider using the Presets feature to help customize baseline settings\nthat will enhance a specific project .\nSee this guide to best practices for importing art assets . For a mobile-specific\nguide (with many general tips as well), check out the Unity Learn course on\n3D art optimization for mobile applications . And watch the GDC 2023 session",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "3D art optimization for mobile applications . And watch the GDC 2023 session\n“Technical tips for every stage of game creation” to learn more about how to\nleverage Presets .\nCompress textures\nConsider these two examples using the same model and texture . The settings\non the top consume more than five times the memory compared to those on the\nbottom, without much benefit in visual quality .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Uncompressed textures require more memory .\nTexture compression offers significant performance benefits when you\napply it correctly .\nThis can result in faster load times, a smaller memory footprint, and dramatically\nincreased rendering performance . Compressed textures only use a fraction of\nthe memory bandwidth needed for uncompressed 32-bit RGBA textures .\nRefer to this recommended list of texture compression formats for your target platform:\n—. iOS./.Android./.Switch: Use ASTC .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "—. iOS./.Android./.Switch: Use ASTC .\n—. PC/XBox.One/PS4:.BC7 (high quality) or DXT1 (low/normal quality)\nSee the manual for more information on recommended texture compression\nformat by platform .\nTexture import settings\nTextures can potentially use a lot of resources . Import settings here are critical .\nIn general, try to follow these guidelines:\n—. Lower.the.Max.Size: Use the minimum settings that produce visually\nacceptable results . This is non-destructive and can quickly reduce",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "acceptable results . This is non-destructive and can quickly reduce\nyour texture memory .\n—. Use.powers.of.two.(POT): Unity requires POT texture dimensions for\ntexture compression formats .\n—. Toggle.off.the.Read/Write.Enabled.option: When enabled, this option\ncreates a copy in both CPU- and GPU-addressable memory, doubling\nthe texture’s memory footprint . In most cases, keep this disabled (only",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "enable this if you generate a texture at runtime and need to overwrite\nit) . You can also enforce this option via Texture2D .Apply, passing in\nmakeNoLongerReadable set to true .\n—. Disable.unnecessary.mipmaps: Mipmaps are not needed for textures that\nremain at a consistent size on-screen, such as 2D sprites and UI graphics\n(leave mipmaps enabled for 3D models that vary their distance from the\ncamera) .\nProper texture import settings will help optimize your build size .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Atlas your textures\nAtlasing is the process of grouping together several smaller textures into a\nsingle uniformly sized larger texture . This can reduce the GPU effort needed to\ndraw the content (using fewer draw calls) and reduce memory usage .\nFor 2D projects, you can use a Sprite Atlas (Asset.>.Create.>.2D.>.Sprite.Atlas)\nrather than rendering individual Sprites and Textures .\nFor 3D projects, you can use your digital content creation (DCC) package of",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "For 3D projects, you can use your digital content creation (DCC) package of\nchoice . Several third-party tools like MA_TextureAtlasser or TexturePacker also\ncan build texture atlases .\nUse texture atlases to save draw calls .\nCombine textures and remap UVs for any 3D geometry that doesn’t require\nhigh-resolution maps . A visual editor gives you the ability to set and prioritize\nthe sizes and positions in the texture atlas or sprite sheet .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "the sizes and positions in the texture atlas or sprite sheet .\nThe texture packer consolidates the individual maps into one large texture . Unity\ncan then issue a single draw call to access the packed Textures with a smaller\nperformance overhead .\nCheck your polygon counts\nHigher-resolution models mean more memory usage and potentially longer\nGPU times . Does your background geometry really need a million polygons?\nKeep the geometric complexity of GameObjects in your Scenes to a minimum,",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Keep the geometric complexity of GameObjects in your Scenes to a minimum,\notherwise Unity has to push a lot of vertex data to the graphics card .\nConsider cutting down models in your DCC package of choice . Delete unseen\npolygons from the camera’s point of view . For example, if you never see the back\nof a cupboard resting against a wall, the model should not have any faces there .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Remove any unseen faces to optimize your models .\nBe aware that the bottleneck is not usually polygon count on modern GPUs,\nbut rather polygon density . We recommend performing an art pass across\nall assets to reduce the polygon count of distant objects . Microtriangles can\nbe a significant cause of poor GPU performance .\nDepending on the target platform, investigate adding details via high-resolution\nTextures to compensate for low-poly geometry . Use textures and normal maps",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Textures to compensate for low-poly geometry . Use textures and normal maps\ninstead of increasing the density of the mesh .\nReduce pixel complexity by baking as much detail into the Textures as possible .\nFor example, capture the specular highlights into the Texture to avoid having to\ncompute the highlight in the fragment shader .\nBe mindful and remember to profile regularly, as these techniques can impact\nperformance, and may not be suitable for your target platform .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Mesh import settings\nMuch like textures, meshes can consume excess memory if not imported\ncarefully . To minimize meshes’ memory consumption:\n—. Use.mesh.compression:\nAggressive mesh\ncompression can reduce\ndisk space (memory\nat runtime, however, is\nunaffected) . Note that\nmesh quantization can\nresult in inaccuracy,\nso experiment with\ncompression levels to\nsee what works for your\nmodels .\n—. Disable.Read/Write:\nEnabling this option\nduplicates the mesh in\nmemory, which keeps one",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "models .\n—. Disable.Read/Write:\nEnabling this option\nduplicates the mesh in\nmemory, which keeps one\ncopy of the mesh in system\nmemory and another in\nGPU memory . In most\ncases, you should disable it\nCheck your mesh import settings .\n(in Unity 2019 .2 and earlier,\nthis option is checked by\ndefault) .\n—. Disable.rigs.and.BlendShapes: If your mesh does not need skeletal or\nblendshape animation, disable these options wherever possible .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "blendshape animation, disable these options wherever possible .\n—. Disable.normals.and.tangents: If you are absolutely certain the mesh’s material\nwill not need normals or tangents, uncheck these options for extra savings .\nOther mesh optimizations\nIn the Player Settings, you can also apply a couple of other optimization to your\nmeshes:\nVertex.Compression sets vertex compression per channel . For example, you\ncan enable compression for everything except positions and lightmap UVs . This",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "can enable compression for everything except positions and lightmap UVs . This\ncan reduce runtime memory usage from your meshes .\nNote that the Mesh Compression in each mesh’s Import Settings overrides the\nvertex compression setting . In that event, the runtime copy of the mesh\nis uncompressed and may use more memory .\nOptimize.Mesh.Data.removes any data from meshes that is not required by the\nmaterial applied to them (such as tangents, normals, colors, and UVs) .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Audit your assets\nBy automating the asset audit process, you can avoid accidentally changing\nasset settings . A couple tools can help both to standardize your import settings\nor analyze your existing assets .\nThe AssetPostprocessor\nThe AssetPostprocessor allows you to hook into the import pipeline and run\nscripts prior to or when importing assets . This prompts you to customize\nsettings before and/or after importing models, textures, audio, and so on in a",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "settings before and/or after importing models, textures, audio, and so on in a\nway that’s similar to presets but through code . Learn more about the process in\nthe GDC 2023 talk “Technical tips for every stage of game creation .”\nUnity DataTools\nUnity DataTools is a collection of open source tools provided by Unity that aim\nto enhance the data management and serialization capabilities in Unity projects .\nIt includes features for analyzing and optimizing project data, such as identifying",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "It includes features for analyzing and optimizing project data, such as identifying\nunused assets, detecting asset dependencies, and reducing build size .\nLearn more about the tools here and read more about Asset Auditing in the\nUnderstanding Optimization in .\nAsync texture buffer\nUnity uses a ring buffer to push textures to the GPU . You can manually adjust\nthis async texture buffer via QualitySettings .asyncUploadBufferSize .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "this async texture buffer via QualitySettings .asyncUploadBufferSize .\nIf either the upload rate is too slow or the main thread stalls while loading\nseveral Textures at once, adjust the Texture buffers . Usually you can set the\nvalue (in MB) to the size of the largest texture you need to load in the Scene .\nNote: Be aware that changing the default values can lead to high memory pressure .\nAlso, you cannot return ring buffer memory to the system after Unity allocates it .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Also, you cannot return ring buffer memory to the system after Unity allocates it .\nIf GPU memory overloads, the GPU unloads the least-recently used Texture\nand forces the CPU to reupload it the next time it enters the camera frustum .\nRead more about memory restrictions in Texture buffers when using time-\nslice awake in the Memory Management in . Also, refer to the post\nOptimizing loading performance to investigate how you can improve your\nloading times with the Async Upload Pipeline .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Stream mipmaps and textures\nThe Mipmap Streaming system gives you control over which mipmap levels load\ninto memory . To enable it, go to Unity’s Quality Settings (Edit.>.Project.Settings.\n>.Quality) and check Texture.Streaming . Enable Streaming.Mipmaps in the\nTexture’s Import Settings under Advanced .\nTexture Streaming\nsettings\nStreaming Mipmaps\nis enabled .\nThis system reduces the total amount of memory needed for Textures because",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "is enabled .\nThis system reduces the total amount of memory needed for Textures because\nit only loads the mipmaps necessary to render the current Camera position .\nOtherwise, Unity loads all of the textures by default . Texture Streaming trades a\nsmall amount of CPU resources to save a potentially large amount of GPU memory .\nYou can use the Mipmap Streaming API for additional control . Texture Streaming\nautomatically reduces mipmap levels to stay within the user-defined Memory Budget .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "automatically reduces mipmap levels to stay within the user-defined Memory Budget .\nUse Addressables\nThe Addressable Asset System simplifies how you manage the assets that make\nup your game . Any asset, including scenes, Prefabs, text assets, and so on, can\nbe marked as “addressable” and given a unique name . You can then call this\nalias from anywhere .\nAdding this extra level of abstraction between the game and its assets can",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "alias from anywhere .\nAdding this extra level of abstraction between the game and its assets can\nstreamline certain tasks, such as creating a separate downloadable content\npack . Addressables makes referencing those asset packs easier as well,\nwhether they’re local or remote .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Texture Streaming\nsettings\nIn this example, Addressables tracks the inventory of Prefabs .\nInstall the Addressables package from the Package Manager . Each asset or Prefab\nin the project has the ability to become “addressable” as a result . Checking the\noption under an asset’s name in the Inspector assigns it a default unique address .\nAddressable option enabled with default Addressable Name\nOnce marked, the corresponding assets appear in the",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Once marked, the corresponding assets appear in the\nWindow.>.Asset.Management.>.Addressables.>.Groups window .\nIn the Addressables Groups, you can see each asset’s custom address paired with its location .\nWhether the asset is hosted elsewhere or stored locally, the system will locate\nit using the Addressable Name string . An addressable Prefab does not load into\nmemory until needed and automatically unloads its associated assets when no\nlonger in use .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "memory until needed and automatically unloads its associated assets when no\nlonger in use .\nThe “Tales from the optimization trenches: Saving memory with Addressables”\nblog post demonstrates an example of how to organize your Addressable\nGroups in order to be more efficient with memory . You can also see the\nAddressables: Introduction to Concepts Learn module for a quick overview of\nhow the Addressable Asset system can work in your project .",
+    "heading": "ASSETS"
+  },
+  {
+    "content": "Unity’s graphics tools let you create beautiful, optimized graphics across a range\nof platforms, from mobile to high-end consoles and desktop . Because lighting\nand effects are quite complex, we recommend that you thoroughly review the\nrender pipeline documentation before attempting to optimize .\nCommit to a render pipeline\nOptimizing scene lighting is not an exact science . Your process usually depends\non your artistic direction and render pipeline .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "on your artistic direction and render pipeline .\nBefore you begin lighting your scenes, you will need to choose one of the\navailable render pipelines . A render pipeline performs a series of operations that\ntake the contents of a scene to display them onscreen .\nUnity provides three prebuilt render pipelines with different capabilities and\nperformance characteristics, or you can create your own .\n— The Built-in Render Pipeline is a general-purpose render pipeline with\nlimited customization .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "— The Built-in Render Pipeline is a general-purpose render pipeline with\nlimited customization .\n— The Universal Render Pipeline (URP) is a prebuilt Scriptable Render Pipeline .\nURP provides artist-friendly workflows to create optimized graphics across\na range of platforms, from mobile to high-end consoles and PCs . URP will\neventually become the default render pipeline in Unity, however, no date is\nset for this yet . The Built-in Render Pipeline will remain an available option at",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "set for this yet . The Built-in Render Pipeline will remain an available option at\nleast for the next release cycle in 2023 .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "URP adds graphics and rendering features unavailable to the Built-in Render\nPipeline . In order to maintain performance, it makes tradeoffs to reduce\nthe computational cost of lighting and shading . Choose URP if you want to\nreach the most target platforms, including mobile and VR .\nGet a complete overview of the capabilities in URP in the e-book\nIntroduction to the Universal Render Pipeline for advanced Unity creators .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Introduction to the Universal Render Pipeline for advanced Unity creators .\n— The High Definition Render Pipeline (HDRP) is another prebuilt Scriptable\nRender Pipeline, designed for cutting-edge, high-fidelity graphics .\nHDRP targets high-end hardware such as PC, Xbox, and PlayStation3 . Use it\nto create realistic games, automotive demos, or architectural applications .\nHDRP uses physically based lighting and materials and supports improved\ndebugging tools .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "HDRP uses physically based lighting and materials and supports improved\ndebugging tools .\nGet a complete overview of the capabilities in HDRP in the e-book The\ndefinitive guide to lighting in the High Definition Render Pipeline .\nURP and HDRP work on top of the Scriptable Render Pipeline (SRP) . This is a\nthin API layer that lets you schedule and configure rendering commands using\nC# scripts . This flexibility allows you to customize virtually every part of the",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "C# scripts . This flexibility allows you to customize virtually every part of the\npipeline . You can also create your own custom render pipeline based on SRP .\nSee Render Pipelines in Unity for a more detailed comparison of the available\npipelines .\nEnemies, a demo created by Unity, showcases HDRP’s high-end graphical capabilities .\n3 HDRP is not currently supported on mobile platforms or Nintendo Switch . See the Requirements and compatibility page for more details .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Choose a render pipeline early when planning your project .\nRender pipeline packages for consoles\nTo build a Project for the PlayStation.4, PlayStation.5, Game.Core.\nXbox, you need to install an additional package for each platform\nyou want to support . The packages for each platform are:\n—. PlayStation.4: com .unity .render-pipelines .ps4\n—. PlayStation.5: com .unity .render-pipelines .ps5\n—. Xbox: com .unity .render-pipelines .gamecore",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Select a rendering path\nWhile selecting a render pipeline,\nyou should also consider a\nrendering path . The rendering path\nrepresents a specific series of\noperations related to lighting and\nshading . Deciding on a rendering\npath depends on your application\nneeds and target hardware .\nForward rendering path\nIn forward rendering, the graphics\ncard projects the geometry and\nsplits it into vertices . Those vertices\nare further broken down into",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "splits it into vertices . Those vertices\nare further broken down into\nfragments, or pixels, which render Materials, such as skin or foliage, can benefit from the\nadvanced lighting and shading features preconfigured with\nto screen to create the final image . the HDRP .\nThe pipeline passes each object, one at a time, to the graphics API . Forward\nrendering comes with a cost for each light . The more lights in your scene, the\nlonger rendering will take .\nForward rendering path",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "longer rendering will take .\nForward rendering path\nThe Built-in Render Pipeline’s forward renderer draws each light in a separate\npass per object . If you have multiple lights hitting the same GameObject, this can\ncreate significant overdraw, where overlapping areas need to draw the same pixel\nmore than once . Minimize the number of real-time lights to reduce overdraw .\nRather than rendering one pass per light, the URP culls the lights per-object .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Rather than rendering one pass per light, the URP culls the lights per-object .\nThis allows for the lighting to be computed in one single pass, resulting in fewer\ndraw calls compared to the Built-In Render Pipeline’s forward renderer .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Deferred shading path\nIn deferred shading, lighting is not calculated per object .\nDeferred shading path\nDeferred shading applies lighting to a buffer instead of each object .\nDeferred shading instead postpones heavy rendering – like lighting – to a later\nstage . Deferred shading uses two passes .\nIn the first pass, or the G-Buffer geometry pass, Unity renders the GameObjects .\nThis pass retrieves several types of geometric properties and stores them in a",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "This pass retrieves several types of geometric properties and stores them in a\nset of textures . G-buffer textures can include:\n— diffuse and specular colors\n— surface smoothness\n— occlusion\n— world space normals\n— emission + ambient + reflections + lightmaps",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "In the second pass, or lighting pass, Unity renders the scene’s lighting based\non the G-buffer . Imagine iterating over each pixel and calculating the lighting\ninformation based on the buffer instead of the individual objects . Thus, adding\nmore non-shadow casting lights in deferred shading does not incur the same\nperformance hit as with forward rendering .\nThough choosing a rendering path is not an optimization per se, it can affect how",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Though choosing a rendering path is not an optimization per se, it can affect how\nyou optimize your project . The other techniques and workflows in this section may\nvary depending on what render pipeline and which rendering path you’ve chosen .\nOptimize Shader Graph\nBoth HDRP and URP support Shader Graph, a visual interface for shader creation .\nThis allows some users to create complex shading effects that may have been",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "This allows some users to create complex shading effects that may have been\npreviously out of reach . Use the 150+ nodes in the visual graph system to create\nmore shaders . You can also make your own custom nodes with the API .\nUse Shader Graph to create shaders via a visual interface rather than through code .\nBegin each Shader Graph with a compatible master node, which determines the\ngraph’s output . Add nodes and operators with the visual interface, and construct\nthe shader logic .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "the shader logic .\nThis Shader Graph then passes into the render pipeline’s backend . The final\nresult is a ShaderLab shader, functionally similar to one written in HLSL or Cg .\nOptimizing a Shader Graph follows many of the same rules that apply to\ntraditional HLSL/Cg Shaders . The more processing your Shader Graph does,\nthe more it will impact the performance of your application .\nIf you are CPU-bound, optimizing your shaders won’t improve frame rate,",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "If you are CPU-bound, optimizing your shaders won’t improve frame rate,\nbut may improve your battery life for mobile platforms .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "If you are GPU-bound, follow these guidelines for improving performance with\nShader Graphs:\n—. Decimate.your.nodes: Remove unused nodes . Don’t change any defaults\nor connect nodes unless those changes are necessary . Shader Graph\ncompiles out any unused features automatically .\nWhen possible, bake values into textures . For example, instead of using a node\nto brighten a texture, apply the extra brightness into the texture asset itself .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "to brighten a texture, apply the extra brightness into the texture asset itself .\n—. Use.a.smaller.data.format: Switch to a smaller data structure when possible .\nConsider using Vector2 instead of Vector3 if it does not impact your project . You\ncan also reduce precision if the situation allows (e .g ., half instead of float) .\nReduce precision in Shader Graph in the Output node when possible .\n—. Reduce.math.operations: Shader operations run many times per second,",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "—. Reduce.math.operations: Shader operations run many times per second,\nso optimize any math operators when possible . Try to blend results instead\nof creating a logical branch . Use constants, and combine scalar values before\napplying vectors . Finally, convert any properties that do not need to appear\nin the Inspector as in-line Nodes . All of these incremental speedups can help\nyour frame budget .\n—. Branch.a.preview: As your graph gets larger, it may become slower to",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "your frame budget .\n—. Branch.a.preview: As your graph gets larger, it may become slower to\ncompile . Simplify your workflow with a separate, smaller branch just\ncontaining the operations you want to preview at the moment, then iterate\nmore quickly on this smaller branch until you achieve the desired results .\nIf the branch is not connected to the master node, you can safely leave\nthe preview branch in your graph . Unity removes nodes that do not affect\nthe final output during compilation .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "the final output during compilation .\n—. Manually.optimize: Even if you’re an experienced graphics programmer,\nyou can still use a Shader Graph to lay down some boilerplate code\nfor a script-based shader . Select the Shader Graph asset, then select\nCopy Shader from the context menu .\nCreate a new HLSL/Cg Shader and then paste in the copied Shader Graph .\nThis is a one-way operation, but it lets you squeeze additional\nperformance with manual optimizations .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Remove built-in shader settings\nRemove every shader that you don’t use from the Always Included list of\nshaders in the Graphics Settings (Edit.>.ProjectSettings.>.Graphics) .\nAdd shaders here needed for the lifetime of the application .\nAlways Included Shaders\nStrip shader variants\nYou can use the Shader compilation pragma directives to compile the shader differently\nfor target platforms . Then, use a shader keyword (or Shader Graph Keyword node)",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "for target platforms . Then, use a shader keyword (or Shader Graph Keyword node)\nto create shader variants with certain features enabled or disabled .\nShader variants can be useful for platform-specific features but increase build\ntimes and file size . You can prevent shader variants from being included in your\nbuild, if you know that they are not required .\nParse the Editor .log for shader timing and size . Locate the lines that begin with\n“Compiled shader” and “Compressed shader .”",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "“Compiled shader” and “Compressed shader .”\nIn an example log, your TEST shader may show you:",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Compiled shader ‘TEST Standard (Specular setup)’ in 31.23s\nd3d9 (total internal programs: 482, unique: 474)\nd3d11 (total internal programs: 482, unique: 466)\nmetal (total internal programs: 482, unique: 480)\nglcore (total internal programs: 482, unique: 454)\nCompressed shader ‘TEST Standard (Specular setup)’ on d3d9 from 1.04MB to 0.14MB\nCompressed shader ‘TEST Standard (Specular setup)’ on d3d11 from 1.39MB to 0.12MB",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Compressed shader ‘TEST Standard (Specular setup)’ on d3d11 from 1.39MB to 0.12MB\nCompressed shader ‘TEST Standard (Specular setup)’ on metal from 2.56MB to 0.20MB\nCompressed shader ‘TEST Standard (Specular setup)’ on glcore from 2.04MB to 0.15MB\nThis tells you a few things about this shader:\n— The shader expands into 482 variants due to #pragma multi_compile\nand shader_feature .\n— Unity compresses the shader included in the game data to roughly the",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "and shader_feature .\n— Unity compresses the shader included in the game data to roughly the\nsum of the compressed sizes: 0 .14+0 .12+0 .20+0 .15 = 0 .61MB .\n— At runtime, Unity keeps the compressed data in memory (0 .61MB), while\nthe data for your currently used graphics API is uncompressed . For\nexample, if your current API was Metal, that would account for 2 .56MB .\nAfter a build, Project Auditor can parse the Editor .log to display a list of all shaders,",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "After a build, Project Auditor can parse the Editor .log to display a list of all shaders,\nshader keywords, and shader variants compiled into a project . It can also\nanalyze the Player .log after the game is run . This shows you what variants the\napplication actually compiled and used at runtime .\nEmploy this information to build a scriptable shader stripping system and reduce\nthe number of variants . This can improve build times, build sizes, and runtime\nmemory usage .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "the number of variants . This can improve build times, build sizes, and runtime\nmemory usage .\nRead the Stripping scriptable shader variants blog post to see this process in detail .\nParticle simulations: Particle System or VFX Graph\nUnity includes two particle simulation solutions for smoke, liquids, flames, or\nother effects:\n— The Built-in Particle System can simulate thousands of particles on the\nCPU . You can use C# scripts to define a system and its individual particles .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "CPU . You can use C# scripts to define a system and its individual particles .\nA simple effects simulation using the Particle System",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Particle Systems can interact with Unity’s underlying physics system and\nany colliders in your scene . Particle Systems offer maximum compatibility\nand work with any of Unity’s supported build platforms .\n— The VFX Graph moves calculations on the GPU using compute shaders . This\ncan simulate millions of particles in large-scale visual effects .\nThe workflow includes a highly customizable graph view . Particles can also\ninteract with the color and depth buffer .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "interact with the color and depth buffer .\nMillions of particles on-screen created with the Visual Effect Graph\nThough it does not have access to the underlying physics system,\na VFX Graph can interact with complex assets, such as Point Caches, Vector\nFields, and Signed Distance Fields . VFX Graph only works on platforms\nthat support compute shaders HDRP, and URP .\nWhen selecting one of the two systems, keep device compatibility in mind .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "When selecting one of the two systems, keep device compatibility in mind .\nMost PCs and consoles support compute shaders, but many mobile devices do not .\nIf your target platform does support compute shaders, Unity allows you to use\nboth types of particle simulation in your project .\nLearn more about creating high-end visual effects with the e-book The\ndefinitive guide to creating advanced visual effects in Unity .\nSmooth with anti-aliasing",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "definitive guide to creating advanced visual effects in Unity .\nSmooth with anti-aliasing\nAnti-aliasing is highly desirable as it helps to smooth the image, reduce jagged\nedges, and minimize specular aliasing .\nIf you are using Forward Rendering with the Built-in Render Pipeline, Multisample\nAnti-aliasing (MSAA) is available in the Quality Settings . MSAA produces high-\nquality anti-aliasing, but it can be expensive . The MSAA.Sample.Count from the",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "quality anti-aliasing, but it can be expensive . The MSAA.Sample.Count from the\ndrop-down menu (None, 2X, 4X, 8X) defines how many samples the renderer\nuses to evaluate the effect .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "If you are using Forward Rendering with the URP or HDRP, you can enable MSAA\non the Render Pipeline Asset .\nIn URP, locate the MSAA settings on the Render Pipeline Asset .\nAlternatively, you have the option to add anti-aliasing as a post-processing\neffect . This appears on the Camera component under Anti-aliasing:\n—. Fast.approximate.anti-aliasing.(FXAA) smooths edges on a per-pixel\nlevel . This is the least resource intensive anti-aliasing and slightly blurs\nthe final image .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "level . This is the least resource intensive anti-aliasing and slightly blurs\nthe final image .\n—. Subpixel.morphological.anti-aliasing.(SMAA) blends pixels based\non the borders of an image . This has much sharper results than FXAA\nand is suited for flat, cartoon-like, or clean art styles .\nIn HDRP, you can also use FXAA and SMAA in the Post.Anti-aliasing on the\nCamera . HDRP also offers an additional option:\n—. Temporal.anti-aliasing.(TAA) smooths edges using frames from the",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "—. Temporal.anti-aliasing.(TAA) smooths edges using frames from the\nhistory buffer . This works more effectively than FXAA but requires\nmotion vectors in order to work . TAA can also improve Ambient Occlusion\nand Volumetrics . It is generally higher quality than FXAA, but it costs\nmore resources and can produce occasional ghosting artifacts .\nAnti-aliasing as a post effect on an HDRP camera .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Common lighting optimizations\nWhile lighting is a vast subject, these general tips can help you to optimize\nyour resources .\nBake.lightmaps\nThe fastest option to create lighting is one that doesn’t need to be computed\nper-frame . To do this, use Lightmapping to “bake” static lighting just once,\ninstead of calculating it in real-time .\nAdd dramatic lighting to your static geometry using Global.Illumination.(GI) .\nMark objects with Contribute.GI so you can store high-quality lighting in the",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Mark objects with Contribute.GI so you can store high-quality lighting in the\nform of Lightmaps .\nThe process of generating a lightmapped environment takes longer than just\nplacing a light in the scene in Unity, but this:\n— runs faster, 2–3 times faster for two-per-pixel lights\n— looks better – Global Illumination can calculate realistic-looking direct and\nindirect lighting . The lightmapper smooths and denoises the resulting map .\nBaked shadows and lighting can then",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Baked shadows and lighting can then\nrender without the same performance hit\nof real-time lighting and shadows .\nComplex scenes may require long bake\ntimes . If your hardware supports the\nProgressive.GPU.Lightmapper, this option\ncan dramatically speed up your lightmap\ngeneration, up to tenfold in some cases .\nEnable Contribute GI\nAdjust the Lightmapping Settings (Windows.>.Rendering.>.Lighting.Settings) and Lightmap size to limit memory usage .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Follow the manual guide and this article on optimizing lighting to get started\nwith lightmapping in Unity .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Minimize.Reflection.Probes.\nA Reflection Probe can create realistic reflections, but this can be very costly\nin terms of batches . Use low-resolution cubemaps, culling masks, and texture\ncompression to improve runtime performance . Use.Type:.Baked to avoid\nper-frame updates .\nIf using Type:.Realtime is necessary in URP, avoid Every.Frame if possible .\nAdjust the Refresh Mode and Time Slicing settings to reduce the update rate .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Adjust the Refresh Mode and Time Slicing settings to reduce the update rate .\nYou can also control the refresh with the Via Scripting option and render the probe\nfrom a custom script .\nIf using Type:.Realtime is necessary in HDRP, use On.Demand mode . You can\nalso modify the Frame Settings in Project.Settings.>.HDRP.Default.Settings .\nReduce the quality and features under Realtime Reflection for improved performance .\nDisable.shadows.",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Disable.shadows.\nShadow casting can be disabled per MeshRenderer and light . Disable shadows\nwhenever possible to reduce draw calls .\nYou can also create fake shadows using a blurred texture applied to a simple\nmesh or quad underneath your characters . Otherwise, you can create blob\nshadows with custom shaders .\nDisable shadow casting to reduce draw calls .\nIn particular, avoid enabling shadows for point lights . Each point light with",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "In particular, avoid enabling shadows for point lights . Each point light with\nshadows requires six shadow map passes per light – compare that with a single\nshadow map pass for a spotlight . Consider replacing point lights with spotlights\nwhere dynamic shadows are absolutely necessary . If you can avoid dynamic\nshadows, use a cubemap as a Light .cookie with your point lights instead .\nSubstitute.a.shader.effect\nIn some cases, you can apply simple tricks rather than adding multiple extra",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "In some cases, you can apply simple tricks rather than adding multiple extra\nlights . For example, instead of creating a light that shines straight into the\ncamera to give a rim lighting effect, use a Shader which simulates rim lighting\n(see Surface Shader examples for an implementation of this in HLSL) .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Use.Light.Layers.\nFor complex scenes with multiple lights, separate your objects using layers,\nthen confine each light’s influence to a specific culling mask .\nLayers can limit your light’s influence to a specific culling mask .\nUse.Light.Probes.for.moving.or.background.objects\nLight Probes store baked lighting information about the empty space in your\nscene, while providing high-quality lighting (both direct and indirect) . They use",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "scene, while providing high-quality lighting (both direct and indirect) . They use\nSpherical Harmonics, which calculate very quickly compared to dynamic lights .\nThis is especially useful for moving objects, which normally cannot receive\nbaked lightmapping .\nLight Probes illuminate dynamic objects in the background .\nLight Probes can apply to static meshes as well . In the MeshRenderer\ncomponent, locate the Receive.Global.Illumination dropdown and toggle it from\nLightmaps to Light.Probes .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "Continue using lightmapping for your prominent level geometry, but switch\nsmaller details to probe lighting . Light Probe illumination does not require proper\nUVs, saving you the extra step of unwrapping your meshes . Probes also reduce\ndisk space since they don’t generate lightmap textures .\nYou can also use Light Probes for smaller details where lightmapping is less noticeable .\nA Light Probe Group with Light Probes spread across the level .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "A Light Probe Group with Light Probes spread across the level .\nSee the Static Lighting with Light Probes blog post for information about\nselectively lighting scene objects with Light Probes .\nFor more about lighting workflows in Unity, read Making believable visuals in Unity .",
+    "heading": "GRAPHICS"
+  },
+  {
+    "content": "To optimize your graphics rendering, you’ll need to understand the limitations of\nyour target hardware and how to profile the GPU . Profiling helps you check and\nverify that the optimizations you’re making are effective .\nUse these best practices for reducing the rendering workload on the GPU .\nBenchmark the GPU\nWhen profiling, it’s useful to start with a benchmark . A benchmark tells you what\nprofiling results you should expect from specific GPUs .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "profiling results you should expect from specific GPUs .\nSee GFXBench for a great list of different industry-standard benchmarks for\nGPUs and graphics cards . The website provides a good overview of the current\nGPUs available and how they stack up against each other .\nWatch the rendering statistics\nClick the Stats button in the top right of the Game view . This window shows\nyou real-time rendering information about your application during Play mode .\nUse this data to help optimize performance:",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Use this data to help optimize performance:\n—. FPS: Frames per second\n—. CPU.Main: Total time to process one frame\n(and update the Editor for all windows)",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "—. CPU.Render: Total time to render one frame of the Game view\n—. Batches: Groups of draw calls to be drawn together\n— Tris.(triangles).and.Verts.(vertices): Mesh geometry\n—. SetPass.calls: The number of times Unity must switch shader passes\nto render the GameObjects on-screen; each pass can introduce extra\nCPU overhead .\nNote: In-Editor fps does not necessarily translate to build performance .\nWe recommend that you profile your build for the most accurate results .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "We recommend that you profile your build for the most accurate results .\nFrame time in milliseconds is a more accurate metric than frames per second\nwhen benchmarking, as outlined in the “FPS: A deceptive metric” section .\nUse draw call batching\nTo draw a GameObject, Unity issues a draw call to the graphics API (e .g .,\nOpenGL, Vulkan, or Direct3D) . Each draw call is resource intensive . State\nchanges between draw calls, such as switching materials, can cause",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "changes between draw calls, such as switching materials, can cause\nperformance overhead on the CPU side .\nPC and console hardware can push a lot of draw calls, but the overhead of each\ncall is still high enough to warrant trying to reduce them . On mobile devices,\ndraw call optimization is vital . You can achieve this with draw call batching .\nDraw call batching minimizes these state changes and reduces the CPU cost of",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Draw call batching minimizes these state changes and reduces the CPU cost of\nrendering objects . Unity can combine multiple objects into fewer batches using\nseveral techniques:\n—. SRP.Batching: If you are using HDRP or URP, enable the SRP Batcher in\nyour Pipeline Asset under Advanced . When using compatible shaders,\nthe SRP Batcher reduces the GPU setup between draw calls and makes\nmaterial data persistent in GPU Memory . This can speed up your CPU",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "material data persistent in GPU Memory . This can speed up your CPU\nrendering times significantly . Use fewer Shader Variants with a minimal\namount of Keywords to improve SRP batching . Consult this SRP documentation\nto see how your project can take advantage of this rendering workflow .\n—. GPU.instancing:.If you have a large number of identical objects (e .g .,\nbuildings, trees, grass, and so on with the same mesh and material), use",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "buildings, trees, grass, and so on with the same mesh and material), use\nGPU instancing . This technique batches them using graphics hardware . To\nenable GPU Instancing, select your material in the Project window, and, in\nthe Inspector, check Enable.Instancing .\n—. Static.batching: For non-moving geometry, Unity can reduce draw\ncalls for any meshes sharing the same material . It is more efficient than\ndynamic batching, but it uses more memory .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "dynamic batching, but it uses more memory .\nMark all meshes that never move as Batching.Static in the Inspector .\nUnity combines all static meshes into one large mesh at build time .\nThe StaticBatchingUtility also allows you to create these static batches\nyourself at runtime (for example, after generating a procedural level\nof non-moving parts) .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "SRP Batcher helps you batch draw calls .\n—. Dynamic.Batching: For small meshes, Unity can group and transform\nvertices on the CPU, then draw them all in one go . Note: Do not use this\nunless you have enough low-poly meshes (no more than 300 vertices\neach and 900 total vertex attributes) . Otherwise, enabling it will waste\nCPU time looking for small meshes to batch .\nYou can maximize batching with a few simple rules:\n— Use as few textures in a scene as possible . Fewer textures require fewer",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "— Use as few textures in a scene as possible . Fewer textures require fewer\nunique materials, making them easier to batch . Additionally, use texture\natlases wherever possible .\n— Always bake lightmaps at the largest atlas size possible . Fewer lightmaps\nrequire fewer material state changes, but keep an eye on the memory\nfootprint .\n— Be careful not to instance materials unintentionally . Accessing Renderer .\nmaterial in scripts duplicates the material and returns a reference to",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "material in scripts duplicates the material and returns a reference to\nthe new copy . This breaks any existing batch that already includes the\nmaterial . If you wish to access the batched object’s material, use Renderer .\nsharedMaterial instead .\n— Keep an eye on the number of static and dynamic batch counts versus the total\ndraw call count by using the Profiler or the rendering stats during optimizations .\nPlease refer to the Draw Call Batching documentation for more information .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Please refer to the Draw Call Batching documentation for more information .\nCheck the Frame Debugger\nThe Frame.Debugger allows you to freeze playback on a single frame and step\nthrough how Unity constructs a scene to identify optimization opportunities .\nLook for GameObjects that render unnecessarily, and disable those to reduce\ndraw calls per frame .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "The Frame Debugger breaks down each rendered frame .\nNote: The Frame Debugger does not show individual draw calls or state changes .\nOnly native GPU profilers give you detailed draw call and timing information .\nHowever, the Frame Debugger can still be very helpful in debugging pipeline\nproblems or batching issues .\nOne advantage of the Unity Frame Debugger is that you can relate a draw call to\na specific GameObject in the scene . This makes it easier to investigate certain",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "a specific GameObject in the scene . This makes it easier to investigate certain\nissues that may not be possible in external frame debuggers .\nFor more information, read the Frame Debugger documentation, and see the\nsection “Use native profiling and debugging tools” for a list of platform-specific\ndebugging tools .\nOptimize fill rate and reduce overdraw\nFill rate refers to the number of pixels the GPU can render to the screen each second .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Fill rate refers to the number of pixels the GPU can render to the screen each second .\nIf your game is limited by fill rate, this means that it’s trying to draw more pixels\nper frame than the GPU can handle .\nDrawing on top of the same pixel multiple times is called overdraw . Overdraw\ndecreases fill rate and costs extra memory bandwidth . The most common\ncauses of overdraw are:\n— Overlapping opaque or transparent geometry\n— Complex shaders, often with multiple render passes",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "— Overlapping opaque or transparent geometry\n— Complex shaders, often with multiple render passes\n— Unoptimized particles\n— Overlapping UI elements\nWhile you want to minimize its effect, there is no one-size-fits-all approach to\nsolving overdraw problems . Begin by experimenting with the above factors to\nreduce their impact .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Draw order and render queues\nTo combat overdraw, you should understand\nhow Unity sorts objects before rendering\nthem .\nThe Built-in Render Pipeline sorts\nGameObjects according to their Rendering\nMode and renderQueue . Each object’s\nshader places it in a render queue, which\noften determines its draw order .\nEach render queue may follow different rules\nfor sorting before Unity actually draws the\nobjects to screen . For example, Unity sorts the\nOpaque Geometry queue front-to-back, but",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "objects to screen . For example, Unity sorts the\nOpaque Geometry queue front-to-back, but\nthe Transparent queue sorts back-to-front .\nObjects rendering on top of one another\ncreate overdraw . If you are using the Built-in\nrender Pipeline, you can visualize overdraw\nin the Scene view control bar . Switch the\ndraw mode to Overdraw .\nBrighter pixels indicate objects drawing on\ntop of one another; dark pixels mean less\noverdraw .\nOverdraw in the Scene view control bar .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "top of one another; dark pixels mean less\noverdraw .\nOverdraw in the Scene view control bar .\nA scene in standard Shaded view",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "The same scene in Overdraw view – overlapping geometry is often a source of overdraw .\nHDRP controls the render queue slightly differently . To calculate the order of the\nrender queue, the HDRP:\n— Groups meshes by shared materials\n— Calculates the rendering order of those groups based on Material Priority\n— Sorts each group using each Mesh Renderer’s Priority property .\nThe resulting queue is a list of GameObjects that are first sorted by their",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "The resulting queue is a list of GameObjects that are first sorted by their\nmaterial’s Priority, then by their individual Mesh Renderer’s Priority . This page on\nRenderer and Material Priority illustrates this in more detail .\nTo visualize transparency overdraw\nwith HDRP, use the Render Pipeline\nDebug window (Window.>.Render.\nPipeline.>.Render.Pipeline.Debug)\nto select TransparencyOverdraw .\nThis debug option displays each pixel\nas a heat map going from black (which",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "This debug option displays each pixel\nas a heat map going from black (which\nrepresents no transparent pixels) through\nblue to red (at which there are Max Pixel\nCost number of transparent pixels) .\nWhen correcting overdraw, these\ndiagnostic tools can offer a visual\nThe HDRP Render Pipeline Debug window can\nbarometer of your optimizations . visualize overdraw from transparent materials .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Optimizing graphics for consoles\nThough developing for Xbox and PlayStation does resemble working with their\nPC counterparts, those platforms do present their own challenges . Achieving\nsmooth frame rates often means focusing on GPU optimization .\nThis section outlines the process of porting the Book of the Dead environment project to PlayStation 4 .\nIdentify your performance bottlenecks.\nTo begin, locate a frame with a high GPU load . Microsoft and Sony provide",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "To begin, locate a frame with a high GPU load . Microsoft and Sony provide\nexcellent tools for analyzing your project’s performance on both the CPU and on\nthe GPU . Make PIX for Xbox and PlayStation profiler tools part of your toolbox\nwhen it comes to optimization on these platforms .\nUse your respective native profiler to break down the frame cost into its specific\nparts . This will be your starting point to improve graphics performance .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "parts . This will be your starting point to improve graphics performance .\nThe view was GPU-bound on a PS4 Pro at roughly 45 milliseconds per frame .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Reduce the batch count\nAs with other platforms, optimization on console will often mean reducing draw\ncall batches . There are a few techniques that might help .\n— Use Occlusion Culling to remove objects hidden behind foreground objects\nand reduce overdraw . Be aware this requires additional CPU processing,\nso use the Profiler to ensure moving work from the GPU to CPU is beneficial .\n— GPU instancing can also reduce your batches if you have many objects",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "— GPU instancing can also reduce your batches if you have many objects\nthat share the same mesh and material . Limiting the number of models in\nyour scene can improve performance . If it’s done artfully, you can build a\ncomplex scene without making it look repetitive .\n— The SRP Batcher can reduce the GPU setup between DrawCalls by batching\nBind and Draw GPU commands . To benefit from this SRP batching, use\nas many materials as needed, but restrict them to a small number of",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "as many materials as needed, but restrict them to a small number of\ncompatible shaders (e .g ., Lit and Unlit shaders in URP and HDRP) .\nActivate Graphics Jobs\nEnable this option in Player.Settings.>.Other.Settings to take advantage of the\nPlayStation’s or Xbox’s multi-core processors . Graphics.Jobs.(Experimental).\nallows Unity to spread the rendering work across multiple CPU cores, removing\npressure from the render thread . See Multithreaded Rendering and Graphics\nJobs tutorial for details .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Jobs tutorial for details .\nProfile the post-processing\nBe sure to use post-processing assets that are optimized for consoles . Tools from\nthe Asset Store that were originally authored for PC may consume more resources\nthan necessary on Xbox or PlayStation . Profile using native profilers to be certain .\nAvoid tessellation shaders\nTessellation subdivides shapes into smaller versions of that shape . This can\nenhance detail through increased geometry . Though there are examples where",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "enhance detail through increased geometry . Though there are examples where\ntessellation does make sense (e .g ., Book of the Dead’s realistic tree bark),\nin general, avoid tessellation on consoles . They can be expensive on the GPU .\nReplace geometry shaders with compute shaders\nLike tessellation shaders, geometry and vertex shaders can run twice per frame\non the GPU – once during the depth pre-pass, and again during the shadow pass .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "on the GPU – once during the depth pre-pass, and again during the shadow pass .\nIf you want to generate or modify vertex data on the GPU, a compute shader\nis often a better choice than a geometry shader . Doing the work in a compute",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "shader means that the vertex shader that actually renders the geometry can be\ncomparatively fast and simple .\nAim for good wavefront occupancy\nWhen you send a draw call to the GPU, that work splits into many wavefronts\nthat Unity distributes throughout the available SIMDs within the GPU .\nEach SIMD has a maximum number of wavefronts that can be running at one\ntime . Wavefront occupancy refers to how many wavefronts are currently in",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "time . Wavefront occupancy refers to how many wavefronts are currently in\nuse relative to the maximum . This measures how well you are using the GPU’s\npotential . PIX and Razor show wavefront occupancy in great detail .\nGood versus bad wavefront occupancy\nIn this example from Book of the Dead, vertex shader wavefronts appear in\ngreen . Pixel shader wavefronts appear in blue . On the bottom graph, many\nvertex shader wavefronts appear without much pixel shader activity . This shows",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "vertex shader wavefronts appear without much pixel shader activity . This shows\nan underutilization of the GPU’s potential .\nIf you’re doing a lot of vertex shader work that doesn’t result in pixels, that may\nindicate an inefficiency . While low wavefront occupancy is not necessarily bad,\nit’s a metric to start optimizing your shaders and checking for other bottlenecks .\nFor example, if you have a stall due to memory or compute operations,",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "For example, if you have a stall due to memory or compute operations,\nincreasing occupancy may help performance . On the other hand, too many in-\nflight wavefronts can cause cache thrashing and decrease performance .\nUse HDRP built-in and custom passes\nIf your project uses HDRP, take advantage of its built-in and custom passes .\nThese can assist in rendering the scene . The built-in passes can help you\noptimize your shaders . HDRP includes several injection points where you can",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "optimize your shaders . HDRP includes several injection points where you can\nadd custom passes to your shaders .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Use HDRP injection points to customize the pipeline .\nFor optimizing the behavior of transparent materials, refer to this page on\nRenderer and Material Priority .\nReduce the size of shadow mapping render targets\nThe High Quality setting of HDRP defaults to using a 4K shadow map . Reduce the\nshadow map resolution and measure the impact on the frame cost . Just be aware that\nyou may need to compensate for any changes in visual quality with the light’s settings .\nUtilize Async Compute",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Utilize Async Compute\nIf you have intervals where you are\nunderutilizing the GPU, Async Compute\nallows you to move useful compute\nshader work in parallel to your graphics\nqueue . This makes better use of those\nGPU resources .\nFor example, during shadow map\ngeneration, the GPU performs depth-\nonly rendering . Very little pixel shader\nwork happens at this point, and many\nwavefronts remain unoccupied .\nIf you can synchronize some compute\nshader work with the depth-only",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "wavefronts remain unoccupied .\nIf you can synchronize some compute\nshader work with the depth-only\nrendering, this makes for a better overall\nuse of the GPU . The unused wavefronts\ncould help with Screen Space Ambient\nOcclusion or any task that complements\nAsync Compute can move compute shader work in\nthe current work . parallel to the graphics queue .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Optimized render at 30 fps\nIn this example from Book of the Dead, several optimizations shaved several\nmilliseconds off the shadow mapping, lighting pass, and atmospherics . The resulting\nframe cost allowed the application to run at 30 fps on a PlayStation®4 Pro .\nWatch a performance case study in Optimizing Performance for High-End Consoles,\nwhere Unity graphics developer Rob Thompson discusses porting the Book of the",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "where Unity graphics developer Rob Thompson discusses porting the Book of the\nDead to PlayStation 4 . You can also read this list of tips for optimizing console game\ngraphics to learn more .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Culling\nOcclusion culling disables GameObjects that are fully hidden (occluded) by\nother GameObjects . This prevents the CPU and GPU from using time to render\nobjects that will never be seen by the Camera .\nCulling happens per camera . It can have a large impact on performance,\nespecially when multiple cameras are enabled concurrently . Unity uses two\ntypes of culling, frustum culling and occlusion culling .\n—. Frustum.culling is performed automatically on every Camera . It prevents",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "—. Frustum.culling is performed automatically on every Camera . It prevents\nGameObjects that are outside of the View Frustum from being rendered,\nhelping to optimize performance .\nYou can set per-layer culling distances manually via Camera .\nlayerCullDistances . This allows you to cull small GameObjects at a distance\nshorter than the default farClipPlane .\nOrganize GameObjects into Layers . Use the layerCullDistances array to",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Organize GameObjects into Layers . Use the layerCullDistances array to\nassign each of the 32 layers a value less than the farClipPlane (or use 0 to\ndefault to the farClipPlane) .\nUnity culls by layer first, keeping GameObjects only on layers the Camera\nuses . Afterwards, frustum culling removes any GameObjects outside the\ncamera frustum . Frustum culling is performed as a series of jobs to take\nadvantage of available worker threads .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "advantage of available worker threads .\nEach layer culling test is very fast (essentially just a bit mask operation) .\nHowever, this cost could still add up with a very large number of\nGameObjects . If this becomes a problem for your project, you may need\nto implement some system to divide your world into “sectors” and disable\nsectors that are outside the Camera frustum in order to relieve some of\nthe pressure on Unity’s layer/frustum culling system .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "the pressure on Unity’s layer/frustum culling system .\n—. Occlusion.culling removes any GameObjects from the Game view if the\nCamera cannot see them . Use this feature to prevent rendering of objects\nhidden behind other objects since these can still render and cost resources .\nFor example, rendering another room is unnecessary if a door is closed and\nthe Camera cannot see into the room .\nEnabling occlusion culling can significantly increase performance but can also",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Enabling occlusion culling can significantly increase performance but can also\nrequire more disk space, CPU time, and RAM . Unity bakes the occlusion data\nduring the build and then needs to load it from disk to RAM while loading a\nscene .\nWhile frustum culling outside the camera view is automatic, occlusion\nculling is a baked process . Simply mark your objects as Static .Occluders\nor Occludees, then bake through the Window.>.Rendering.>.Occlusion.\nCulling dialog .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Check out the Working with Occlusion Culling tutorial for more information .\nAn example of occlusion culling",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Dynamic resolution\nAllow.Dynamic.Resolution is a Camera setting that allows you to dynamically\nscale individual render targets to reduce workload on the GPU . In cases\nwhere the application’s frame rate reduces, you can gradually scale down the\nresolution to maintain a consistent frame rate .\nUnity triggers this scaling if performance data suggests that the frame rate is\nabout to decrease as a result of being GPU-bound . You can also preemptively",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "about to decrease as a result of being GPU-bound . You can also preemptively\ntrigger this scaling manually with script . This is useful if you are approaching a\nGPU-intensive section of the application . If scaled gradually, dynamic resolution\ncan be almost unnoticeable .\nRefer to the dynamic resolution manual page for additional information and a list\nof supported platforms .\nMultiple camera views\nSometimes you may need to render from more than one point of view during",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Multiple camera views\nSometimes you may need to render from more than one point of view during\nyour game . For example, it’s common in an FPS game to draw the player’s\nweapon and the environment separately with different fields of view (FOV) .\nThis prevents the foreground objects from feeling too distorted viewed through\nthe wide-angle FOV of the background .\nCamera Stacking in URP . In this example, the gun and background render with different camera settings .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "You could use Camera Stacking in URP to render more than one camera view .\nHowever, there is still significant culling and rendering done for each camera .\nEach camera incurs some overhead, whether it’s doing meaningful work or not .\nOnly use Camera components required for rendering . On mobile platforms,\neach active camera can use up to 1 ms of CPU time, even when rendering nothing .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "each active camera can use up to 1 ms of CPU time, even when rendering nothing .\nThe Unity CPU Profiler shows the main thread in the timeline view and indicates that there are multiple Cameras .\nUnity performs culling for each Camera .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "RenderObjects in URP\nIn the URP, instead of using multiple\ncameras, try a custom RenderObject .\nSelect Add.Renderer.Feature in\nthe Renderer.Data asset . Choose\nRenderObject.(Experimental) .\nWhen overriding each RenderObject,\nyou can:\n— Associate it with an Event and\ninject it into a specific timing of\nthe render loop\n— Filter by Render Queue\n(Transparent or Opaque) Create a custom RenderObject to override render settings .\nand LayerMask\n— Affect the Depth and Stencil settings",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "and LayerMask\n— Affect the Depth and Stencil settings\n— Modify the Camera settings (Field of View and Position Offset)\nRenderObjects in URP combine multiple Layers into one rendered view .\nCustomPassVolumes in HDRP\nIn HDRP, you can use custom passes to similar effect . Configuring a\nCustom Pass using a Custom Pass Volume is analogous to using an HDRP Volume .\nA Custom Pass allows you to:\n— Change the appearance of materials in your scene\n— Change the order that Unity renders GameObjects",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "— Change the order that Unity renders GameObjects\n— Read Camera buffers into shaders\nUsing Custom Passes in HDRP can help you avoid using extra Cameras\nand the additional overhead associated with them . Custom passes have\nextra flexibility in how they can interact with shaders . You can also extend\nthe Custom Pass class with C# .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "A CustomPassVolume in HDRP .\nUse Level of Detail (LOD)\nAs objects move into the distance,\nLevel of Detail can adjust or switch\nthem to use lower-resolution meshes\nwith simpler materials and shaders to\naid GPU performance .\nSee the Working with LODs course on\nUnity Learn for more detail .\nExample of a Mesh using a Level of Detail Group\nSource meshes, modeled at varying resolutions",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Profile post-processing effects\nProfile your post-processing effects to see their cost on the GPU . Some fullscreen\neffects, like Bloom and depth of field, can be expensive, but experiment until\nyou find a happy balance between visual quality and performance .\nPost-processing tends not to fluctuate much at runtime . Once you’ve\ndetermined your Volume Overrides, allot your post effects a static portion of\nyour total frame budget .\nKeep post-processing effects simple if possible .",
+    "heading": "GPUOPTIMIZATION"
+  },
+  {
+    "content": "Unity offers two UI systems: The older Unity UI and the new UI Toolkit . UI Toolkit\nis intended to become the recommended UI system . It’s tailored for maximum\nperformance and reusability, with workflows and authoring tools inspired by\nstandard web technologies, meaning UI designers and artists will find it familiar\nif they already have experience designing web pages .\nHowever, as of Unity 2022 LTS, UI Toolkit does not have some features that",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "However, as of Unity 2022 LTS, UI Toolkit does not have some features that\nUnity UI and Immediate Mode GUI (IMGUI) support . Unity UI and IMGUI are more\nappropriate for certain use cases, and are required to support legacy projects .\nSee the Comparison of UI systems in Unity for more information .\nDivide your Canvases\nIf you have one large Canvas with thousands of elements, updating a single UI element\nforces the whole Canvas to update, which can potentially generate a CPU spike .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "forces the whole Canvas to update, which can potentially generate a CPU spike .\nTake advantage of UGUI’s ability to support multiple Canvases . Divide UI elements\nbased on how frequently they need to be refreshed . Keep static UI elements\non a separate Canvas, and dynamic elements that update at the same time on\nsmaller sub-canvases .\nEnsure that all UI elements within each Canvas have the same Z value, materials,\nand textures .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Hide invisible UI elements\nYou might have UI elements that only appear sporadically in the game\n(e .g ., a health bar that appears when a character takes damage) . If your invisible\nUI element is active, it might still be using draw calls . Explicitly disable any\ninvisible UI components and reenable them as needed .\nIf you only need to turn off the Canvas’s visibility, disable the Canvas component\nrather than the whole GameObject . This can prevent your game from having to",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "rather than the whole GameObject . This can prevent your game from having to\nrebuild meshes and vertices when you reenable it .\nLimit GraphicRaycasters and disable Raycast Target\nInput events like onscreen touches or clicks require the GraphicRaycaster component .\nThis simply loops through each input point on screen and checks if it’s within a\nUI’s RectTransform . You need a Graphic Raycaster on every Canvas that requires\ninput, including sub-canvases .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "input, including sub-canvases .\nWhile this is not really a raycaster (despite the name), there is some expense\nfor each intersection check . Minimize the number of Graphic Raycasters by not\nadding them to non-interactive UI Canvases .\nRemove GraphicRaycasters from non-interactive UI Canvases .\nIn addition, disable Raycast Target on all UI text and images that don’t need it .\nIf the UI is complex with many elements, all of these small changes can reduce\nunnecessary computation .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "unnecessary computation .\nDisable Raycast Target if possible .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Avoid layout groups\nLayout Groups update inefficiently, so use them sparingly . Avoid them entirely\nif your content isn’t dynamic, and use anchors for proportional layouts instead .\nOtherwise, create custom code to disable the Layout Group components after\nthey set up the UI .\nIf you do need to use Layout Groups (Horizontal, Vertical, Grid) for your dynamic\nelements, avoid nesting them to improve performance .\nLayout Groups can lower performance, especially when nested .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Layout Groups can lower performance, especially when nested .\nAvoid large List and Grid views\nLarge List and Grid views are expensive . If you need to create a large List or\nGrid view (e .g ., an inventory screen with hundreds of items), consider reusing\na smaller pool of UI elements rather than creating a UI element for every item .\nCheck out this sample GitHub project to see this in action .\nAvoid numerous overlaid elements",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Check out this sample GitHub project to see this in action .\nAvoid numerous overlaid elements\nLayering lots of UI elements (e .g ., cards stacked in a card battle game) creates\noverdraw . Customize your code to merge layered elements at runtime into fewer\nelements and batches .\nWhen using a fullscreen UI, hide everything else\nIf your pause or start screen covers everything else in the scene, disable the\ncamera that is rendering the 3D scene . Likewise, disable any background",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "camera that is rendering the 3D scene . Likewise, disable any background\nCanvas elements hidden behind the top Canvas .\nConsider lowering the Application .targetFrameRate during a fullscreen UI,\nsince you should not need to update at 60 fps .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "UI Toolkit performance optimization tips\nUI Toolkit offers improved performance over Unity UI, is tailored for maximum\nperformance and reusability, and provides workflows and authoring tools\ninspired by standard web technologies . One of its key benefits is that it uses a\nhighly optimized rendering pipeline that is specifically designed for UI elements .\nHere are some general recommendations for optimizing performance of your UI\nwith UI Toolkit:",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Here are some general recommendations for optimizing performance of your UI\nwith UI Toolkit:\n—. Use.efficient.layouts: Efficient layouts refer to using layout groups\nprovided by UI Toolkit, such as Flexbox, instead of manually positioning\nand resizing UI elements . Layout groups handle the layout calculations\nautomatically, which can significantly improve performance . They ensure\nthat UI elements are arranged and sized correctly based on the specified",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "that UI elements are arranged and sized correctly based on the specified\nlayout rules . By using efficient layouts, you avoid the overhead of manual\nlayout calculations and achieve consistent and optimized UI rendering .\n—. Avoid.expensive.operations.in.Update: Minimize the amount of work\nperformed in Update methods, especially heavy operations like UI element\ncreation, manipulation, or calculation . Perform these operations sparingly",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "creation, manipulation, or calculation . Perform these operations sparingly\nor during initialization whenever possible, as the update method is called\nonce per frame .\n—. Optimize.event.handling: Be mindful of event subscriptions and unregister\nthem when no longer needed . Excessive event handling can impact\nperformance, so ensure you only subscribe to events that are necessary .\n—. Optimize.style.sheets: Be mindful of the number of style classes and",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "—. Optimize.style.sheets: Be mindful of the number of style classes and\nselectors used in your style sheets . Large style sheets with numerous\nrules can impact performance . Keep your style sheets lean and avoid\nunnecessary complexity .\n—. Profile.and.optimize: Use Unity’s profiling tools to identify performance\nbottlenecks in your UI and spot areas that can be optimized further, such\nas inefficient layout calculations or excessive redraws .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "as inefficient layout calculations or excessive redraws .\n—. Test.on.target.platforms: Test your UI performance on target platforms\nto ensure optimal performance across different devices . Performance can\nvary based on hardware capabilities, so consider the target platform when\noptimizing your UI .\nRemember, performance optimization is an iterative process . Continuously profile,\nmeasure, and optimize your UI code to ensure it runs smoothly and efficiently .",
+    "heading": "USERINTERFACE"
+  },
+  {
+    "content": "Although audio is not normally a performance bottleneck, you can still optimize\nto save memory, disk space, or CPU usage .\nUse lossless files as your source\nStart with your sound assets in a lossless file format like WAV or AIFF .\nIf you use any compressed format (such as MP3 or Vorbis), then Unity will\ndecompress it and recompress it during build time . This results in two lossy\npasses, degrading the final quality .\nAudio loading CPU usage in the Unity Profiler",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Reduce your AudioClips\nImport settings on Audio Clips can save\nruntime memory and CPU performance:\n— Enable the Force.To.Mono option\non stereo audio files if they do not\nrequire stereo sound; this saves\nruntime memory and disk space .\nSpatial Audio Sources should use\nAudioClips which are either authored\nin mono or have Force To Mono\nenabled in their import settings . If\nyou use stereo sounds in spatial\nAudio Sources, the audio data will\ntake up twice the disk space and",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Audio Sources, the audio data will\ntake up twice the disk space and\nmemory; Unity must convert the\nsound to mono during the audio\nmixing process, which also requires\nextra CPU processing time .\nAudioClip Import Settings\n—. Preload.Audio.Data ensures that Unity will load any referenced AudioClips\nbefore initializing the scene . However, this may increase scene loading\ntimes .\n— If your sound clip is not needed immediately, load it asynchronously .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "times .\n— If your sound clip is not needed immediately, load it asynchronously .\nCheck.Load.in.Background . This loads the sound at a delayed time on a\nseparate thread, without blocking the main thread .\n— Set the Sample.Rate.Setting to Optimize Sample Rate or Override Sample Rate .\nFor mobile platforms, 22050 Hz should be sufficient . Use 44100Hz\n(i .e ., CD quality) sparingly . 48000Hz is excessive .\nFor PC/console platforms, 44100Hz is ideal . 48000Hz is usually unnecessary .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "For PC/console platforms, 44100Hz is ideal . 48000Hz is usually unnecessary .\n— Compress the AudioClip and reduce the compression bitrate .\nFor mobile platforms, use Vorbis for most sounds (or MP3 for sounds\nnot intended to loop) . Use ADPCM for short, frequently used sounds\n(e .g ., footsteps, gunshots) .\nFor PC and Xbox®, use the Microsoft XMA codec instead of Vorbis or MP3 .\nMicrosoft recommends a compression ratio between 8:1 and 15:1 .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Microsoft recommends a compression ratio between 8:1 and 15:1 .\nFor Playstation, use the ATRAC9 format . This has less CPU overhead than\nVorbis or MP3 .\n— The proper Load Type depends on the length of the clip .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Clip.size Example.usage Load.type.settings\nSmall Noisy sound effects Use Decompress.on.Load .\n(< 200 (footsteps, gunshots), UI This incurs a small CPU\nKB) sounds cost to decompress a\nsound into raw 16-bit PCM\naudio data, but will be the\nmost performant at runtime .\nOR\nSet to Compressed.\nIn.Memory.and set\nCompression.Format to\nADPCM . This offers a\nfixed 3 .5:1 compression\nratio and is inexpensive to\ndecompress in real-time .\nMedium Dialog, short music, Optimal Load Type depends",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "decompress in real-time .\nMedium Dialog, short music, Optimal Load Type depends\n(>= 200 medium/non-noisy on the project’s priorities .\nKB) sounds effects\nIf reducing memory usage\nis the priority, select\nCompressed.In.Memory .\nIf CPU usage is a concern,\nclips should be set to\nDecompress.On.Load .\nLarge Background music, Set to Streaming .\n(> 350- ambient background Streaming has a 200 KB\n400 KB) noise, long dialog overhead, so it is only\nsuitable for sufficiently\nlarge AudioClips .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "400 KB) noise, long dialog overhead, so it is only\nsuitable for sufficiently\nlarge AudioClips .\nOptimize the AudioMixer\nIn addition to your AudioClip settings, be aware of these issues with the AudioMixer .\n— The SFX Reverb Effect is one of the most expensive audio effects in the\nAudioMixer . Adding a mixer group with SFX Reverb (and a mixer group\nsending to it) increases CPU cost .\nThis happens even if there is no AudioSource actually sending a signal",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "This happens even if there is no AudioSource actually sending a signal\nto the groups . Unity’s Digital Signal Processing Graph (DSPGraph) doesn’t\ndistinguish if it’s getting null signals or not .",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Adding a Reverb group and a group sending to it is expensive, even if no AudioSource writes to it .\n— Reduce the number of mixer groups to improve AudioMixer performance .\nAdding a large number of child groups under a single parent group\nincreases audio CPU cost significantly . This happens even if all\nAudioSource outputs straight to Master, since Unity’s DSP does not\ndistinguish null signals .\nAn AudioMixer group with too many child groups",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "distinguish null signals .\nAn AudioMixer group with too many child groups\n— Avoid parents with a single child group . Whenever possible, combine the\ntwo mixer groups into one .\nAn AudioMixer with single child groups",
+    "heading": "AUDIO"
+  },
+  {
+    "content": "Physics can create intricate gameplay, but this comes with a performance cost .\nWhen you know these costs, you can tweak the simulation to manage them\nappropriately . These tips can help you stay within your target frame rate and\ncreate smooth playback with Unity’s built-in physics (NVIDIA PhysX) .\nSimplify colliders\nMesh colliders can be expensive . Substitute more complex mesh colliders with\nprimitive or simplified mesh colliders to approximate the original shape .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "primitive or simplified mesh colliders to approximate the original shape .\nUse primitives or simplified meshes for colliders .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Optimize your settings\nIn the Player Settings, check Prebake.Collision.Meshes whenever possible .\nEnable Prebake Collision Meshes\nMake sure that you edit your Physics settings (Project.Settings.>.Physics) as well .\nSimplify your Layer Collision Matrix wherever possible .\nModify the physics project settings to squeeze out more performance .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Adjust simulation frequency\nPhysics engines work by running on a fixed time step . To see the fixed rate that\nyour project is running at, go to Edit.>.Project.Settings.>.Time .\nThe default Fixed Timestep in the Project Settings is 0 .02 seconds (50 frames per second) .\nThe Fixed.Timestep field defines the time delta used by each physics step . For\nexample, the default value of 0 .02 seconds (20 ms) is equivalent to 50 fps, or 50 Hz .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "example, the default value of 0 .02 seconds (20 ms) is equivalent to 50 fps, or 50 Hz .\nBecause each frame in Unity takes a variable amount of time, it is not perfectly\nsynced with the physics simulation . The engine counts up to the next physics\ntime step . If a frame runs slightly slower or faster, Unity uses the elapsed time to\nknow when to run the physics simulation at the proper time step .\nIn the event that a frame takes a long time to prepare, this can lead to performance",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "In the event that a frame takes a long time to prepare, this can lead to performance\nissues . For example, if your game experiences a spike (e .g ., instantiating many\nGameObjects or loading a file from disk), the frame could take 40 ms or more to run .\nWith the default 20 ms Fixed Timestep, this would cause two physics simulations\nto run on the following frame in order to “catch up” with the variable time step .\nExtra physics simulations, in turn, add more time to process the frame .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Extra physics simulations, in turn, add more time to process the frame .\nOn lower-end platforms, this potentially leads to a downward spiral of performance .\nA subsequent frame taking longer to prepare makes the backlog of physics\nsimulations longer as well . This leads to even slower frames and even more\nsimulations to run per frame . The result is worse and worse performance .\nEventually the time between physics updates could exceed the Maximum",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Eventually the time between physics updates could exceed the Maximum\nAllowed Timestep . After this cutoff, Unity starts dropping physics updates,\nand the game stutters .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "To avoid performance issues with physics:\n— Reduce the simulation frequency . For lower-end platforms, increase the\nFixed.Timestep to slightly more than your target frame rate . For example,\nuse 0 .035 seconds for 30ps on mobile . This could help prevent that\ndownward performance spiral .\n— Decrease the.Maximum.Allowed.Timestep . Using a smaller value (like 0 .1 s)\nsacrifices some physics simulation accuracy, but also limits how many",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "sacrifices some physics simulation accuracy, but also limits how many\nphysics updates can happen in one frame . Experiment with values to find\nsomething that works for your project’s requirements .\n— Simulate the physics step manually if necessary . You can disable Auto.Simulation\nin the Physics Settings and instead directly invoking Physics .Simulate during\nthe Update phase of the frame . This allows you to take control when to",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "the Update phase of the frame . This allows you to take control when to\nrun the physics step . Pass Time .deltaTime to Physics .Simulate in order to\nkeep the physics in sync with the simulation time .\nThis approach can cause instabilities in the physics simulation in scenes\nwith complex physics or highly variable frame times, so use it with caution .\nProfiling a scene in Unity with manual simulation\nModify CookingOptions for MeshColliders",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Profiling a scene in Unity with manual simulation\nModify CookingOptions for MeshColliders\nMeshes used in physics go through a process called cooking . This prepares the\nmesh so that it can work with physics queries like raycasts, contacts, and so on .\nA MeshCollider has several CookingOptions to help you validate the mesh for\nphysics . If you are certain that your mesh does not need these checks, you can\ndisable them to speed up your cook time .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "disable them to speed up your cook time .\nIn the CookingOptions for each MeshCollider, simply uncheck the\nEnableMeshCleaning, WeldColocatedVertices, and CookForFasterSimulation .\nThese options are valuable for procedurally generated meshes at runtime,\nbut can be disabled if your meshes already have the proper triangles .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Also, if you are targeting PC, make sure you keep Use Fast Midphase enabled .\nThis switches to a faster algorithm from PhysX 4 .1 during the mid-phase of\nthe simulation (which helps narrow down a small set of potentially intersecting\ntriangles for physics queries) . Non-desktop platforms must still use the slower\nalgorithm that generates R-Trees .\nCooking options for a mesh\nUse Physics .BakeMesh\nIf you are generating meshes procedurally during gameplay, you can create",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Use Physics .BakeMesh\nIf you are generating meshes procedurally during gameplay, you can create\na Mesh Collider at runtime . Adding a MeshCollider component directly to the\nmesh, however, cooks/bakes the physics on the main thread . This can consume\nsignificant CPU time .\nUse Physics .BakeMesh to prepare a mesh for use with a MeshCollider and save\nthe baked data with the mesh itself . A new MeshCollider referencing this mesh",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "the baked data with the mesh itself . A new MeshCollider referencing this mesh\nwill reuse this prebaked data (rather than baking the mesh again) . This can help\nreduce Scene load time or instantiation time later .\nTo optimize performance, you can offload mesh cooking to another thread with\nthe C# Job System . Refer to this example for details on how to bake meshes\nacross multiple threads .\nBakeMeshJob in the Profiler",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Use Box Pruning for large scenes\nThe Unity physics engine runs in two steps:\n— the broad.phase, which collects potential collisions using\na sweep and prune algorithm\n— the narrow.phase, where the engine actually computes the collisions\nThe broad phase default setting of Sweep and Prune BroadPhase\n(Edit.>.Project.Settings.>.Physics.>.BroadPhase.Type) can generate false\npositives for worlds that are generally flat and have many colliders .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "positives for worlds that are generally flat and have many colliders .\nIf your scene is large and mostly flat, avoid this issue and switch to\nAutomatic.Box.Pruning or Multibox.Pruning.Broadphase . These options divide\nthe world into a grid, where each grid cell performs sweep-and-prune .\nMultibox Pruning Broadphase allows you to specify the world boundaries and the\nnumber of grid cells manually, while Automatic Box Pruning calculates that for you .\nBroadphase Type in the Physics options",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Broadphase Type in the Physics options\nModify solver iterations\nIf you want to simulate a specific physics body more accurately, increase its\nRigidbody .solverIterations .\nOverride the defaultSolverIterations per Rigidbody",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "This overrides the Physics .defaultSolverIterations, which can also be found in\nEdit.>.Project.Settings.>.Physics.>.Default.Solver.Iterations .\nTo optimize your physics simulations, set a relatively low value in the project’s\ndefaultSolveIterations . Then apply higher custom Rigidbody .solverIterations\nvalues to the individual instances that need more detail .\nDisable automatic transform syncing\nWhen you update a Transform, Unity does not automatically sync it to the",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "When you update a Transform, Unity does not automatically sync it to the\nphysics engine . Unity accumulates transformations and waits for either the\nphysics update to execute or for the user to call Physics .SyncTransforms .\nIf you want to sync physics with your Transforms more frequently, you can set\nPhysics .autoSyncTransform to true (also found in Project.Settings.>.Physics.>.\nAuto.Sync.Transforms) . When this is enabled, any Rigidbody or Collider on that",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Auto.Sync.Transforms) . When this is enabled, any Rigidbody or Collider on that\nTransform or its children automatically update with the Transform .\nHowever, disable this unless absolutely necessary . Otherwise, a series of\nsuccessive physics queries (such as raycasts) can lead to a loss in performance .\nProfiling a scene in Unity with Auto Sync Transform disabled\nReuse Collision Callbacks\nThe callbacks MonoBehaviour .OnCollisionEnter, MonoBehaviour .OnCollisionStay",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "The callbacks MonoBehaviour .OnCollisionEnter, MonoBehaviour .OnCollisionStay\nand MonoBehaviour .OnCollisionExit all take a collision instance as a parameter .\nThis collision instance is allocated on the managed heap and must be garbage\ncollected .\nTo reduce the amount of garbage generated, enable Physics .reuseCollisionCallbacks\n(also found in Projects.Settings.>.Physics.>.Reuse.Collision.Callbacks) .\nWith this active, Unity only assigns a single collision pair instance to each callback .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "With this active, Unity only assigns a single collision pair instance to each callback .\nThis reduces waste for the garbage collector and improves performance .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Note: If you reference the collision instance outside of the collision callbacks for\npost-processing, you must disable Reuse Collision Callbacks .\nIn the Unity Console, there is a single collision instance on Collision Entered and Collision Stay .\nMove static colliders\nStatic colliders are GameObjects with a Collider component but without a Rigidbody .\nNote that you can move a static collider, contrary to the term “static .” To do",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Note that you can move a static collider, contrary to the term “static .” To do\nso, simply modify the position of the physics body . Accumulate the positional\nchanges and sync before the physics update . You don’t need to add a Rigidbody\ncomponent to the static collider just to move it .\nHowever, if you want the static collider to interact with other physics bodies in\na more complex way, give it a kinematic Rigidbody . Use Rigidbody .position and",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "a more complex way, give it a kinematic Rigidbody . Use Rigidbody .position and\nRigidbody .rotation to move it instead of accessing the Transform component .\nThis guarantees more predictable behavior from the physics engine .\nNote: In 2D physics, do not move static colliders because the tree rebuild\nis time consuming .\nUse non-allocating queries\nTo detect and collect Colliders within a certain distance and in a certain\ndirection, use raycasts and other physics queries like BoxCast .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "direction, use raycasts and other physics queries like BoxCast .\nPhysics queries that return multiple colliders as an array, like OverlapSphere or\nOverlapBox, need to allocate those objects on the managed heap . This means\nthat the garbage collector eventually needs to collect the allocated objects,\nwhich can decrease performance if it happens at the wrong time .\nTo reduce this overhead, use the NonAlloc versions of those queries . For example,",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "To reduce this overhead, use the NonAlloc versions of those queries . For example,\nif you are using OverlapSphere to collect all potential colliders around a point,\nuse OverlapSphereNonAlloc instead .\nThis allows you to pass in an array of colliders (the results parameter) to act as\na buffer . The NonAlloc method works without generating garbage . Otherwise,\nit functions like the corresponding allocating method .\nNote that you need to define a results buffer of sufficient size when using a",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Note that you need to define a results buffer of sufficient size when using a\nNonAlloc method . The buffer does not grow if it runs out of space .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Batch queries for ray casting\nYou can run raycast queries with Physics .Raycast . However, if you have a large\nnumber of raycast operations (e .g ., calculating line of sight for 10,000 agents),\nthis may take a significant amount of CPU time .\nUse RaycastCommand to batch the query using the C# Job System . This\noffloads the work from the main thread so that the raycasts can happen\nasynchronously and in parallel .\nSee a usage example at the RaycastCommands documentation page .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "asynchronously and in parallel .\nSee a usage example at the RaycastCommands documentation page .\nThe Physics Debugger helps you visualize how your physics objects can interact with one another .\nVisualize with the Physics Debugger\nUse the Physics Debug window (Window.>.Analysis.>.Physics.Debugger)\nto help troubleshoot any problem colliders or discrepancies . This shows a\ncolor-coded indicator of the GameObjects that can collide with one another .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "color-coded indicator of the GameObjects that can collide with one another .\nFor more information, see Physics Debug in the Unity documentation .",
+    "heading": "PHYSICS"
+  },
+  {
+    "content": "Unity’s Animation System (sometimes called Mecanim) is fairly sophisticated .\nIts workflow involves several key components .\n— Animation Clips contain information about how certain objects should\nchange their position, rotation, or other properties over time .\n— The Animator Controller, a structured flowchart-like system, acts as an\nAnimation State Machine . This tracks the clip currently being played, as\nwell as when the animations should change or blend together .",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "well as when the animations should change or blend together .\n— A humanoid rig gives you the ability to retarget bipedal animation from any\nsource (e .g ., motion capture, the Asset Store, or some other third-party\nanimation library) to your own character model . Unity’s Avatar system maps\nhumanoid characters to a common internal format, making this possible .\nAnimator component",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "— A GameObject has an Animator component to connect these parts together .\nThis component references an Animator Controller and an Avatar (if required) .\nThe Animator Controller, in turn, references the Animation Clips it uses .\nUnity’s Animation System\nThese guidelines will help you when working with animation in Unity .\nUse generic rather than humanoid rigs\nBy default, Unity imports animated models\nwith the generic rig, but developers often\nswitch to the humanoid rig when animating",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "with the generic rig, but developers often\nswitch to the humanoid rig when animating\na character . Be aware of these issues with\nrigs:\n— Use a generic rig whenever possible .\nHumanoid rigs calculate inverse\nkinematics and animation retargeting\neach frame, even when not in use .\nThus, they consume 30–50% more CPU\ntime than their equivalent generic rigs .\n— When importing humanoid animation,\nuse an Avatar Mask to remove IK Goals\nor finger animation if you don’t need\nthem .",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "use an Avatar Mask to remove IK Goals\nor finger animation if you don’t need\nthem .\n— With generic rigs, using root motion is\nGeneric rigs use less CPU time than humanoid rigs .\nmore expensive than not using it . If your\nanimations don’t use root motion, do not\nspecify a root bone .",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "Use alternatives for simple animation\nAnimators are primarily intended for humanoid characters . However, they\nare often repurposed to animate single values (e .g ., the alpha channel of a\nUI element) . Avoid overusing Animators, particularly in conjunction with UI\nelements, since they come with extra overhead .\nThe current animation system is optimized for animation blending and more\ncomplex setups . It has temporary buffers used for blending, and there is",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "complex setups . It has temporary buffers used for blending, and there is\nadditional copying of the sampled curve and other data .\nAlso, if possible, consider not using the animation system at all . Create easing\nfunctions or use a third-party tweening library where possible (e .g ., DOTween) .\nThese can achieve very natural-looking interpolation with mathematical expressions .\nAvoid scale curves\nAnimating scale curves is more expensive than animating translation and",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "Avoid scale curves\nAnimating scale curves is more expensive than animating translation and\nrotation curves . To improve performance, avoid scale animations .\nNote: This does not apply to constant curves (curves that have the same value\nfor the length of the animation clip) . Constant curves are optimized, and these\nare less expensive than normal curves .\nUpdate only when visible\nSet the animators’s Culling Mode to Based on Renderers, and disable the",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "Update only when visible\nSet the animators’s Culling Mode to Based on Renderers, and disable the\nskinned mesh renderer’s Update When Offscreen property . This saves Unity\nfrom updating animations when the character is not visible .\nOptimize workflow\nOther optimizations are possible at the scene level:\n— Use hashes instead of strings to query the Animator .\n— Implement a small AI Layer to control the Animator . You can make it",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "— Implement a small AI Layer to control the Animator . You can make it\nprovide simple callbacks for OnStateChange, OnTransitionBegin, and other\nevents .\n— Use State Tags to easily match your AI state machine to the Unity state\nmachine .\n— Use additional curves to simulate events .\n— Use additional curves to mark up your animations, for example in\nconjunction with target matching .",
+    "heading": "ANIMATION"
+  },
+  {
+    "content": "Building an application in Unity is a huge endeavor that often involves many\ndevelopers . Make sure that your project is set up optimally for your team .\nUse version control\nVersion control is essential for working as part of a team . It can help you track\ndown bugs and bad revisions . Follow good practices like using branches and\ntags to manage milestones and releases .\nTo help with version control merges, make sure your Editor settings have Asset.",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "To help with version control merges, make sure your Editor settings have Asset.\nSerialization.Mode set to Force.Text . This is less space efficient but makes\nUnity store scene files in a text-based format .\nAsset Serialization Mode\nIf you’re using an external version control system (such as Git) in the Version\nControl settings, verify that the Mode is set to Visible Meta Files .\nVersion Control Mode\nUnity also has a built-in YAML (a human-readable, data-serialization language)",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Version Control Mode\nUnity also has a built-in YAML (a human-readable, data-serialization language)\ntool specifically for merging scenes and Prefabs . For more information, see\nSmart merge in the Unity documentation .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Unity Version Control\nMost Unity projects include a sizable amount of art assets in addition to the\nscript code . If you want to manage these assets with version control, consider\nswitching to Unity Version Control (formerly known as Plastic SCM) . Even with\nGit LFS, Git does not perform as well as Plastic SCM with larger repositories\nwhich offers superior speed when working with large binary files (>500 MB) .\nVersion Control web experience in the Unity dashboard",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Version Control web experience in the Unity dashboard\nUnity Version Control allows you to:\n— Work knowing that your art assets are securely backed up\n— Track ownership of every asset\n— Roll back to previous iterations of an asset\n— Drive automated processes on a single central repository\n— Create branches quickly and securely over multiple platforms\nAdditionally, Unity Version Control helps you centralize your development with",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Additionally, Unity Version Control helps you centralize your development with\nexcellent visualization tools . Artists especially will appreciate the user-friendly\nworkflows that encourage tighter integration between development and art teams .\nUnity Version Control offers artist friendly UI",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "To get started with .\nBreak up large scenes\nLarge, single Unity scenes do not lend themselves well to collaboration .\nBreak your levels into many smaller scenes so that artists and designers can\ncollaborate effectively on a single level while minimizing the risk of conflicts .\nNote that at runtime, your project can load scenes additively using\nSceneManager .LoadSceneAsync passing the.LoadSceneMode .Additive\nparameter mode .\nReach the next level with industry-leading expertise from",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "parameter mode .\nReach the next level with industry-leading expertise from\nAccelerate Solutions\nAccelerate Solutions specializes in helping game studios hit their most\nambitious goals across several use cases, including improving performance\nand optimization, game planning and technical design, project acceleration,\nimproving player KPIs and monetization, and delivering on challenging ports\nand migrations . The global team is made up of Unity’s most senior software",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "and migrations . The global team is made up of Unity’s most senior software\ndevelopers and technical artists who are knowledgeable across the Unity\nengine, multiplayer, cloud, devops, AI/ML, and game design .\nThe team’s expertise lies in helping you take your game to the next level at\nany stage of game development . The optimizations mainly focus on identifying\ngeneral and specific performance issues such as frame rate, memory, and",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "general and specific performance issues such as frame rate, memory, and\nbinary size to improve player experiences and/or iteration times . Services\noffered range from consulting to full game development .\nConsulting\nDuring these engagements, the consultant will analyze your project or\nworkflows and provide guidance and recommendations to your team on how to\nachieve your desired outcome .\nCodevelopment\nWorking alongside your team, a Unity developer and/or team will deep dive into",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Codevelopment\nWorking alongside your team, a Unity developer and/or team will deep dive into\nyour project and achieve a desired outcome .\nCustom.development and Full.game.development\nFor these engagements, the Accelerate Solutions team will assign and partner\nwith an internal Unity team or highly experienced Unity game studio team\nto lead and execute a project on your behalf, owning it from inception to\ncompletion .\nTo learn more about Accelerate Solutions, please reach out .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Remove roadblocks with Unity Integrated Success\nIntegrated Success is our most complete Success Plan – ideal for your most\ncomplex projects and helping your games reach their full potential . From strategic\nplanning to unforeseen circumstances, we’ve got you covered . Get insight, hands-\non guidance, and premium technical support to ensure your project’s success .\nThis plan provides access to advanced features including our fastest response",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "This plan provides access to advanced features including our fastest response\ntimes, dedicated strategic support from a Partner Relations Manager, prioritized\nbug handling and LTS backporting, and an annual deep-dive project review .\nIntegrated Success also allows you to optionally add read and modification\naccess to Unity source code . This access is available for development teams\nthat want to deep dive into Unity source code to adapt and reuse it for other\napplications .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "that want to deep dive into Unity source code to adapt and reuse it for other\napplications .\nOptimize.your.game.with.a.Project.Review.\nProject Reviews are an essential part of the Integrated Success package . Learn\nhow to optimize your project during this annual review . Senior engineers perform\nan analysis of your work and provide insights and actionable advice specific to\nyour goals .\nThe team familiarizes themselves with your projects and then uses various",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "your goals .\nThe team familiarizes themselves with your projects and then uses various\nprofiling tools to detect performance bottlenecks, factoring in existing\nrequirements and design decisions . They also try to identify points where\nperformance could be optimized for greater speed, stability, and efficiency .\nFor well-architected projects that have low build times (modular scenes, heavy\nusage of AssetBundles, etc .), they’ll make adjustments and reprofile to uncover\nnew issues .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "usage of AssetBundles, etc .), they’ll make adjustments and reprofile to uncover\nnew issues .\nIn instances where the team is unable to solve problems immediately, they’ll\ncapture as much information as possible and conduct further investigation\ninternally, consulting specialized developers across R&D if necessary .\nThough deliverables can vary depending on your needs, findings are summarized\nwith recommendations provided in a written report . The team’s goal is to always",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "with recommendations provided in a written report . The team’s goal is to always\nprovide the greatest value to you by helping to identify potential blockers, assess\nrisk, validate solutions, and ensure that best practices are followed moving\nforward .\nPartner.Relations.Manager.(PRM).\nIn addition to a Project Review, Unity Integrated Success also comes with a\nPartner Relations Manager (PRM) – a strategic Unity advisor who acts as your",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Partner Relations Manager (PRM) – a strategic Unity advisor who acts as your\ninternal advocate and an extension of your team to help you get the most out of\nUnity . They maintain clear lines of communication so you’re always informed and\nworking towards your goals . Your PRM provides you with the dedicated technical\nand operational expertise required to preempt issues and keep your projects\nrunning smoothly, up to and following launch .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "running smoothly, up to and following launch .\nTo learn more about our Integrated Success package, Project Reviews, and PRMs,\nplease reach out .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Next.steps\nYou can find additional optimization tips, best practices, and news on the\nUnity Blog and Unity community forums, as well as through Unity Learn\nand the #unitytips hashtag .\nPerformance optimization is a vast topic that requires careful attention .\nIt is vital to understand how your target hardware operates, along with its\nlimitations . In order to find an efficient solution that satisfies your design\nrequirements, you will need to master Unity’s classes and components,",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "requirements, you will need to master Unity’s classes and components,\nalgorithms and data structures, and your platform’s profiling tools .\nUnity’s team is always here to help you find the right tools and services\nfor support throughout your game development journey, from concept\nto commercialization . If you’re ready to get going, you can access Unity Pro today\nor talk to one of our experts to learn about all the ways we’re ready\nto help you realize your vision .\nMore resources",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "to help you realize your vision .\nMore resources\nCreate a C# style guide: Write cleaner code that scales assists you with\ndeveloping a style guide to help unify your approach to creating a more\ncohesive codebase .\nLevel up your code with game programming patterns highlights best practices\nfor using the SOLID principles and common programming patterns to create\nscalable game code architecture in your Unity project .\nCreate modular game architecture in Unity with ScriptableObjects is the third",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "Create modular game architecture in Unity with ScriptableObjects is the third\nguide in our series for intermediate to advanced ,\nauthored by experienced programmers, provides best practices for topics that\nare important to development teams .\nProfessional training for Unity creators\nUnity Professional Training gives you the skills and knowledge to work more\nproductively and collaborate efficiently in Unity . Find an extensive training",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  },
+  {
+    "content": "productively and collaborate efficiently in Unity . Find an extensive training\ncatalog designed for professionals in any industry, at any skill level, in multiple\ndelivery formats .\nAll materials are created by experienced Instructional Designers in partnership\nwith our engineers and product teams . This means that you always receive the\nmost up-to-date training on the latest Unity tech .\nLearn more about how Unity Professional Training can support you and\nyour team .",
+    "heading": "WORKFLOWANDCOLLABORATION"
+  }
+]
