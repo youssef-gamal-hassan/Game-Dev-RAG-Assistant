@@ -6,7 +6,7 @@ A lightweight Retrieval-Augmented Generation (RAG) system that answers technical
 
 ## 🔧 Features
 
-- Gemini-powered embeddings (`model-embedding-004`) and generation (`gemini-2.5-flash`)
+- Gemini-powered embeddings (`gemini-embedding-001`) and generation (`gemini-2.5-flash`)
 - FAISS vector store for fast document retrieval
 - Modular Python structure with LangChain
 - Loads and chunks game development PDFs and blogs
