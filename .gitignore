@@ -27,3 +27,4 @@ __pycache__/
 *.faiss
 chroma_db/
 
+/processed/unity_faiss/

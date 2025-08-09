@@ -2,6 +2,7 @@
 langchain
 faiss-cpu
 langchain-google-genai
+langchain_community
 
 # PDF/Text processing
 pdfplumber
