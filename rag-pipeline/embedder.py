@@ -79,21 +79,21 @@ def create_embeddings(docs: list[Document], output_path="D:/Projects/game-dev-ra
     return f"Embeddings saved to {output_path}"
 
 
-def store_in_faiss(embeddings_path: str, faiss_dir: str):
+def store_in_faiss_per_heading(embeddings_path: str, base_faiss_dir: str):
     """
-    Load precomputed embeddings from JSON and store them in a FAISS index.
+    Create a separate FAISS index for each heading.
 
     :param embeddings_path: Path to embeddings.json
-    :param faiss_dir: Directory path to save the FAISS index
+    :param base_faiss_dir: Directory to store all heading-specific FAISS indexes
     """
     with open(embeddings_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    text_embedding_pairs = [
-        (item["content"], item["embedding"])
-        for item in data
-    ]
-    metadatas = [{"heading": item["heading"]} for item in data]
+    # Group embeddings by heading
+    grouped = {}
+    for item in data:
+        heading = item["heading"] or "NO_HEADING"
+        grouped.setdefault(heading, []).append(item)
 
     load_dotenv()
     api_key = os.getenv("GOOGLE_API_KEY")
@@ -102,14 +102,26 @@ def store_in_faiss(embeddings_path: str, faiss_dir: str):
         google_api_key=api_key
     )
 
-    vectorstore = FAISS.from_embeddings(
-        text_embeddings=text_embedding_pairs,
-        embedding=embedding_model,
-        metadatas=metadatas
-    )
+    for heading, items in grouped.items():
+        text_embedding_pairs = [
+            (item["content"], item["embedding"]) for item in items
+        ]
+        metadatas = [{"heading": item["heading"]} for item in items]
 
-    vectorstore.save_local(faiss_dir)
-    print(f"FAISS index saved to {faiss_dir}")
+        vectorstore = FAISS.from_embeddings(
+            text_embeddings=text_embedding_pairs,
+            embedding=embedding_model,
+            metadatas=metadatas
+        )
+
+        # Clean heading name for filesystem
+        safe_heading = heading.replace("/", "_").replace("\\", "_").replace(" ", "_")
+        heading_dir = os.path.join(base_faiss_dir, safe_heading)
+        os.makedirs(heading_dir, exist_ok=True)
+
+        vectorstore.save_local(heading_dir)
+        print(f"Saved FAISS index for heading '{heading}' → {heading_dir}")
+
 
 def inspect_faiss(faiss_dir: str, embedding_model):
     """
@@ -135,3 +147,6 @@ def inspect_faiss(faiss_dir: str, embedding_model):
         print(f"Content preview: {doc.page_content[:150]}...\n")
         if i >= 2:
             break
+
+
+store_in_faiss_per_heading("D:/Projects/game-dev-rag/processed/embeddings.json", "D:/Projects/game-dev-rag/processed/unity_faiss")
